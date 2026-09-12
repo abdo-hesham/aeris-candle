@@ -5,8 +5,15 @@ import { useEffect, useRef, useState } from "react";
 
 /** Circumference of the r=48 progress ring, in user units. */
 const RING = 2 * Math.PI * 48;
-/** The plate is never a flash: it holds at least this long before it can leave. */
-const MIN_VISIBLE = 1100;
+/**
+ * The plate holds no floor of its own: it leaves the moment the fonts and the
+ * first screen's images have settled. The floor used to be 1.1s, and the plate
+ * is what the hero's candle — the LCP element — is painting behind, so that
+ * second and a bit was added to the site's LCP on every visit, including the
+ * ones where the hero was ready long before it. The counter's own close still
+ * takes a handful of frames, so the arc is never cut off mid-sweep.
+ */
+const MIN_VISIBLE = 0;
 /** A stalled image must not hold the site shut: past this, the plate leaves. */
 const MAX_VISIBLE = 12000;
 /** How fast the counter chases its target, per frame, before and after `load`. */
@@ -213,15 +220,17 @@ export default function Preloader({ onDone }: Props) {
           </svg>
           <span ref={head} className="warm-preloader-head" />
           {/* Served straight from /public: the mark is the one thing on this
-              screen that must not wait on an image transform. It is a 640px
+              screen that must not wait on an image transform. It is a 384px
               copy of the master, because 191px is the largest it is ever
-              drawn — the 1254px master cost 168KB to show a 191px mark. */}
+              drawn — the 1254px master cost 168KB to show a 191px mark, and
+              the 640px copy still sent twice the pixels a retina screen can
+              use. */}
           <Image
             className="warm-preloader-logo"
-            src="/assets/logo-mark.png"
+            src="/assets/logo-mark-384.png"
             alt=""
-            width={640}
-            height={640}
+            width={384}
+            height={384}
             priority
             unoptimized
             data-critical=""

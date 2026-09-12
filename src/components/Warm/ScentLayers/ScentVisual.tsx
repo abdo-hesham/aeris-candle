@@ -29,7 +29,7 @@ export default function ScentVisual() {
             src={scentLayers.disc}
             alt=""
             {...squareSize}
-            sizes="(max-width: 767px) 90vw, 60vw"
+            sizes="(max-width: 767px) 74vw, (max-width: 1023px) 59vw, 50vw"
             quality={85}
             loading="eager"
             fetchPriority="low"
@@ -53,7 +53,7 @@ export default function ScentVisual() {
             src={scentLayers.platform}
             alt=""
             {...objectSize}
-            sizes="(max-width: 767px) 96vw, 56vw"
+            sizes="(max-width: 767px) 98vw, (max-width: 1023px) 69vw, 58vw"
             quality={85}
             loading="eager"
             fetchPriority="low"
@@ -64,7 +64,7 @@ export default function ScentVisual() {
             src={scentLayers.bowl}
             alt=""
             {...squareSize}
-            sizes="(max-width: 767px) 34vw, 18vw"
+            sizes="(max-width: 767px) 26vw, (max-width: 1023px) 17vw, 14vw"
             quality={85}
             loading="eager"
             fetchPriority="low"
@@ -81,7 +81,7 @@ export default function ScentVisual() {
                 src={scent.image}
                 alt=""
                 {...objectSize}
-                sizes="(max-width: 767px) 78vw, 38vw"
+                sizes="(max-width: 767px) 66vw, (max-width: 1023px) 52vw, 44vw"
                 quality={85}
                 loading="eager"
                 fetchPriority="low"
@@ -94,7 +94,7 @@ export default function ScentVisual() {
             src={scentLayers.branch}
             alt=""
             {...objectSize}
-            sizes="(max-width: 767px) 62vw, 32vw"
+            sizes="(max-width: 767px) 52vw, (max-width: 1023px) 31vw, 26vw"
             quality={85}
             loading="eager"
             fetchPriority="low"

@@ -54,7 +54,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             src={ritualLayers.platform}
             alt=""
             {...object}
-            sizes="(max-width: 767px) 96vw, 94vw"
+            sizes="(max-width: 767px) 88vw, 93vw"
             quality={85}
             loading="lazy"
           />
@@ -67,7 +67,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             src={ritualLayers.sandalwood}
             alt=""
             {...object}
-            sizes="(max-width: 767px) 56vw, 24vw"
+            sizes="(max-width: 767px) 37vw, 23vw"
             quality={85}
             loading="lazy"
           />
@@ -80,7 +80,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             src={ritualLayers.cedar}
             alt=""
             {...object}
-            sizes="(max-width: 767px) 60vw, 20vw"
+            sizes="(max-width: 767px) 35vw, 20vw"
             quality={85}
             loading="lazy"
           />
@@ -93,7 +93,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             src={ritualLayers.amber}
             alt=""
             {...square}
-            sizes="(max-width: 767px) 26vw, 14vw"
+            sizes="(max-width: 767px) 24vw, 14vw"
             quality={85}
             loading="lazy"
           />
@@ -104,7 +104,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
               src={ritualLayers.candle}
               alt=""
               {...square}
-              sizes="(max-width: 767px) 52vw, 33vw"
+              sizes="(max-width: 767px) 47vw, (max-width: 1100px) 32vw, 27vw"
               quality={90}
               loading="lazy"
             />
@@ -116,7 +116,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
               src={ritualLayers.linen}
               alt=""
               {...object}
-              sizes="(max-width: 767px) 88vw, 36vw"
+              sizes="40vw"
               quality={85}
               loading="lazy"
             />
