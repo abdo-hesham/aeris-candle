@@ -184,28 +184,37 @@ export default function WarmExperience() {
             ScrollTrigger.refresh();
             open();
           });
-          // A layer that has not landed yet changes the page's height when it
-          // finally paints, so the triggers are re-measured then rather than
-          // guessed at now. One refresh per frame at most: twenty layers
-          // landing together used to mean twenty full re-measurements of the
-          // document, back to back, on the main thread.
+          // A layer that has not landed yet could change the page's height
+          // when it paints, and the triggers would then be measured against a
+          // document that no longer exists. In practice none of them do: every
+          // layer carries its own width and height and is positioned out of
+          // flow, which is why the page's layout shift is zero. Re-measuring
+          // on each `load` therefore bought nothing and cost everything —
+          // ScrollTrigger's share of the main thread was seconds of style and
+          // layout, re-measuring a document that had not moved.
+          //
+          // So: one refresh, after the last layer settles, and only if the
+          // document really did change height.
           const pending = Array.from(
             root.current!.querySelectorAll<HTMLImageElement>("img"),
           ).filter((image) => !image.complete);
-          let queued = 0;
+          let settle = 0;
+          let height = document.documentElement.scrollHeight;
           const remeasure = () => {
-            if (queued) return;
-            queued = requestAnimationFrame(() => {
-              queued = 0;
+            window.clearTimeout(settle);
+            settle = window.setTimeout(() => {
+              const now = document.documentElement.scrollHeight;
+              if (now === height) return;
+              height = now;
               ScrollTrigger.refresh();
-            });
+            }, 250);
           };
           pending.forEach((image) =>
             image.addEventListener("load", remeasure, { once: true }),
           );
           return () => {
             active = false;
-            if (queued) cancelAnimationFrame(queued);
+            window.clearTimeout(settle);
             pending.forEach((image) =>
               image.removeEventListener("load", remeasure),
             );

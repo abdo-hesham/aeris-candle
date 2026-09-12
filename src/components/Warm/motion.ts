@@ -2,6 +2,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export { gsap, ScrollTrigger };
+
+// The story is one pin with one scrubbed timeline, and `onUpdate` runs on it
+// every frame. `limitCallbacks` stops ScrollTrigger firing the enter/leave
+// callbacks more than once per scroll direction, and `ignoreMobileResize`
+// stops a phone's address bar sliding away from counting as a resize — each
+// of which otherwise forces a full re-measure of a pinned document.
+ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
 export const motion = {
   // Desktop: one pin holds the whole story — every chapter, every handoff.
   storyLength: 14,

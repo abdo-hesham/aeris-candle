@@ -10,12 +10,11 @@ const { scene, object, square } = ritualSizes;
 // including the three ingredients that carry over from Section 3, so this
 // component never animates anything itself.
 //
-// Every layer is fetched at load but at a low priority and without a preload
-// hint. The timeline is scrubbed against this room's measured geometry, so a
-// layer that arrives mid-scroll moves the ground under it; they are not
-// deferred. What they no longer do is race the hero: eight `priority` layers
-// three screens down used to be preloaded ahead of the candle in front of
-// the reader.
+// Every layer here is lazy. This room is two screens below the fold, and each
+// layer is a large PNG whose decode lands on the main thread. Eight of them
+// decoding during the hero's entrance is the entrance's whole frame budget.
+// They carry their own width and height and sit out of flow, so arriving late
+// moves nothing.
 export default function RitualScene({ onBuy }: { onBuy: () => void }) {
   return (
     <section id="shop" className="ritual" aria-labelledby="ritual-title">
@@ -28,8 +27,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             {...scene}
             sizes="100vw"
             quality={85}
-            loading="eager"
-            fetchPriority="low"
+            loading="lazy"
           />
         </div>
         <div className="ritual-layer ritual-layer--light">
@@ -39,8 +37,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             {...scene}
             sizes="100vw"
             quality={75}
-            loading="eager"
-            fetchPriority="low"
+            loading="lazy"
           />
         </div>
       </div>
@@ -59,8 +56,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             {...object}
             sizes="(max-width: 767px) 96vw, 94vw"
             quality={85}
-            loading="eager"
-            fetchPriority="low"
+            loading="lazy"
           />
         </div>
         <div
@@ -73,8 +69,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             {...object}
             sizes="(max-width: 767px) 56vw, 24vw"
             quality={85}
-            loading="eager"
-            fetchPriority="low"
+            loading="lazy"
           />
         </div>
         <div
@@ -87,8 +82,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             {...object}
             sizes="(max-width: 767px) 60vw, 20vw"
             quality={85}
-            loading="eager"
-            fetchPriority="low"
+            loading="lazy"
           />
         </div>
         <div
@@ -101,8 +95,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
             {...square}
             sizes="(max-width: 767px) 26vw, 14vw"
             quality={85}
-            loading="eager"
-            fetchPriority="low"
+            loading="lazy"
           />
         </div>
         <div className="ritual-layer ritual-layer--candle" data-ritual-candle>
@@ -113,8 +106,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
               {...square}
               sizes="(max-width: 767px) 52vw, 33vw"
               quality={90}
-              loading="eager"
-            fetchPriority="low"
+              loading="lazy"
             />
           </span>
         </div>
@@ -126,8 +118,7 @@ export default function RitualScene({ onBuy }: { onBuy: () => void }) {
               {...object}
               sizes="(max-width: 767px) 88vw, 36vw"
               quality={85}
-              loading="eager"
-            fetchPriority="low"
+              loading="lazy"
             />
           </span>
         </div>
