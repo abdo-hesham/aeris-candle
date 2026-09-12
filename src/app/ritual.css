@@ -116,9 +116,9 @@
 .ritual-layer--candle {
   /* Centred on 50% of the stage; the width and the left edge move together so
      the vessel keeps the same spot on the stone when it is resized. */
-  left: 35.3%;
+  left: 36.5%;
   bottom: 9.8%;
-  width: 29.4%;
+  width: 27%;
   --depth: 3;
   z-index: 3;
   /* The vessel is lit from the upper left, like the room. A single soft
@@ -465,8 +465,8 @@
     width: min(260px, 30vw);
   }
   .ritual-layer--candle {
-    left: 31.7%;
-    width: 34.6%;
+    left: 33.1%;
+    width: 31.8%;
   }
 }
 @media (max-width: 767px) {
@@ -567,9 +567,9 @@
     width: 92%;
   }
   .ritual-layer--candle {
-    left: 25%;
+    left: 27.2%;
     bottom: 17%;
-    width: 53%;
+    width: 48.7%;
   }
   /* The three notes keep their places around the vessel, as on the desktop
      still life. The phone stage is wider relative to the candle, so each one
