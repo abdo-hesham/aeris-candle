@@ -1,0 +1,2077 @@
+.warm-experience {
+  /* One source of truth for the hero's height: the pinned viewport that
+     holds both chapters is exactly this tall. */
+  --warm-hero-height: max(100svh, 700px);
+  --warm-cream: oklch(91% 0.025 75);
+  --warm-brown: oklch(27% 0.026 55);
+  --warm-sand: oklch(85% 0.035 75);
+  background: var(--warm-brown);
+  color: var(--warm-cream);
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+.warm-experience section {
+  scroll-margin-top: 0;
+}
+.warm-hero {
+  height: var(--warm-hero-height);
+  min-height: 650px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #725a43;
+}
+.warm-background,
+.warm-foreground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.warm-background {
+  z-index: -4;
+  transform-origin: 65% 58%;
+}
+.warm-background img {
+  object-fit: cover;
+  object-position: center;
+}
+/* One plate per orientation, chosen by a <source media> in the markup, so
+   the browser requests exactly the one it will draw. */
+.warm-nav {
+  position: absolute;
+  top: 27px;
+  left: 5.45%;
+  right: 6.65%;
+  display: flex;
+  align-items: center;
+  gap: 55px;
+  z-index: 8;
+}
+.warm-wordmark {
+  font-size: 36px;
+  letter-spacing: 0.32em;
+  line-height: 1.3;
+  font-weight: 400;
+}
+.warm-nav > .warm-wordmark {
+  color: #615342;
+}
+.warm-nav nav {
+  margin-left: auto;
+  display: flex;
+  gap: clamp(25px, 3.4vw, 60px);
+  align-items: center;
+}
+.warm-nav nav a {
+  position: relative;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  padding: 13px 0;
+}
+.warm-nav nav a:after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.warm-nav nav a:hover:after,
+.warm-nav .warm-home-link:after {
+  transform: scaleX(1);
+}
+.warm-bag {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+}
+.warm-heading {
+  position: absolute;
+  left: 26.6%;
+  top: 17.1%;
+  width: 70%;
+  margin: 0;
+  font-size: clamp(85px, 10.15vw, 190px);
+  font-weight: 300;
+  letter-spacing: -0.047em;
+  line-height: 0.84;
+  z-index: 1;
+}
+.warm-heading-line {
+  display: block;
+  white-space: nowrap;
+}
+.warm-heading-letter {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+.warm-heading-line + .warm-heading-line {
+  font-size: 0.78em;
+  letter-spacing: -0.035em;
+  margin-top: 0.08em;
+}
+.warm-intro {
+  position: absolute;
+  left: 5.45%;
+  top: 36.7%;
+  z-index: 4;
+}
+.warm-intro p {
+  font-size: clamp(17px, 1.48vw, 26px);
+  letter-spacing: 0.12em;
+  line-height: 1.45;
+  margin: 0 0 25px;
+}
+.warm-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.13em;
+  min-height: 44px;
+}
+.warm-text-link > span {
+  position: relative;
+  padding: 8px 0;
+}
+.warm-text-link > span:after {
+  position: absolute;
+  content: "";
+  height: 1px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: currentColor;
+  transition: transform 0.4s;
+  transform-origin: left;
+}
+.warm-text-link:hover > span:after {
+  transform: scaleX(0.7);
+}
+.warm-text-link svg,
+.warm-buy svg {
+  width: 40px;
+  height: 18px;
+  transition: transform 0.3s;
+}
+.warm-text-link:hover svg,
+.warm-buy:hover svg {
+  transform: translateX(5px);
+}
+.warm-product-layer {
+  position: absolute;
+  width: 19.7%;
+  left: 56.85%;
+  top: 49.1%;
+  z-index: 3;
+  transform-origin: 50% 90%;
+}
+.warm-candle {
+  position: relative;
+  width: 100%;
+  filter: drop-shadow(10px 16px 10px rgba(30, 15, 4, 0.2));
+}
+.warm-candle img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.warm-flame {
+  position: absolute;
+  left: 49%;
+  top: -9%;
+  width: 5%;
+  height: 20%;
+  border-radius: 65% 35% 48% 48% / 85% 85% 20% 20%;
+  background: radial-gradient(
+    ellipse at 50% 76%,
+    #fffbee 0 34%,
+    #ffdd8b 58%,
+    #ff952f 80%
+  );
+  box-shadow: 0 0 18px 6px #ffa43966;
+  transform-origin: center bottom;
+  animation: warm-flicker 2.6s ease-in-out infinite alternate;
+}
+.warm-fire-glow {
+  position: absolute;
+  left: 73%;
+  top: 33%;
+  width: 23%;
+  height: 33%;
+  z-index: -2;
+  background: radial-gradient(ellipse, #ff8e2e44, transparent 68%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: warm-glow 5s ease-in-out infinite alternate;
+}
+.warm-haze {
+  position: absolute;
+  left: 38%;
+  top: 47%;
+  width: 40%;
+  height: 30%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(247, 223, 189, 0.085),
+    transparent 65%
+  );
+  z-index: 2;
+  pointer-events: none;
+  animation: warm-drift 14s ease-in-out infinite alternate;
+}
+.warm-foreground {
+  z-index: 5;
+  background: url("/assets/fireplace-bg.png") center/cover no-repeat;
+  clip-path: polygon(0 67%, 5% 69%, 12% 77%, 20% 91%, 29% 100%, 0 100%);
+  transform-origin: bottom left;
+}
+.warm-hero-footer {
+  position: absolute;
+  left: 5.45%;
+  right: 5.45%;
+  bottom: 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 6;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+}
+.warm-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+.warm-progress i {
+  height: 1px;
+  width: 100px;
+  background: currentColor;
+  opacity: 0.7;
+}
+.warm-hero-footer > div {
+  display: flex;
+  gap: 38px;
+}
+.warm-hero-footer a:hover {
+  opacity: 0.7;
+}
+.warm-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9%;
+  padding: 140px 7%;
+  background: var(--warm-cream);
+  color: var(--warm-brown);
+  align-items: center;
+}
+.warm-story-image {
+  position: relative;
+  min-height: 650px;
+  overflow: hidden;
+}
+.warm-story-image img {
+  object-fit: cover;
+  object-position: 22% center;
+}
+.warm-story-image:after {
+  content: "";
+  position: absolute;
+  inset: 65% 0 0;
+  background: linear-gradient(transparent, #2e211954);
+}
+.warm-story-image > span {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  z-index: 1;
+  color: var(--warm-cream);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+}
+.warm-eyebrow {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  display: block;
+}
+.warm-experience h2 {
+  font-size: clamp(52px, 5.6vw, 100px);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  margin: 35px 0;
+}
+.warm-experience h2 em {
+  font-weight: 300;
+}
+.warm-story-copy p,
+.warm-shop-copy > p {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 14px;
+  line-height: 1.95;
+  max-width: 39ch;
+  opacity: 0.8;
+  margin-bottom: 22px;
+}
+.warm-story-copy .warm-text-link {
+  margin-top: 16px;
+}
+.warm-scents {
+  padding: 110px 10% 125px;
+  background: var(--warm-brown);
+}
+.warm-scent-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 45px;
+}
+.warm-scent-title > .warm-eyebrow {
+  margin-top: 45px;
+}
+.warm-scent-title h2 {
+  margin-top: 20px;
+  width: 64%;
+}
+.warm-note-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12%;
+  margin-top: 60px;
+}
+.warm-note-tabs button {
+  width: 100%;
+  padding: 22px 0;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 20px;
+  border-top: 1px solid #e8d9c12c;
+  font-size: 38px;
+  opacity: 0.48;
+  transition: opacity 0.25s;
+}
+.warm-note-tabs button:last-child {
+  border-bottom: 1px solid #e8d9c12c;
+}
+.warm-note-tabs button[aria-selected="true"],
+.warm-note-tabs button:hover {
+  opacity: 1;
+}
+.warm-note-tabs button > span {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 11px;
+}
+.warm-note-tabs button > span:last-child {
+  margin-left: auto;
+  font-size: 22px;
+}
+.warm-note-copy {
+  padding-top: 28px;
+}
+.warm-note-copy > p {
+  font-size: 30px;
+  line-height: 1.4;
+  max-width: 27ch;
+  animation: warm-note-in 0.4s ease-out;
+}
+.warm-note-copy small {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+}
+.warm-price {
+  font-size: 42px;
+  margin: 18px 0;
+}
+.warm-price > span {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  margin-left: 12px;
+}
+.warm-buy {
+  background: var(--warm-brown);
+  color: var(--warm-cream);
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  align-items: center;
+  flex: 1;
+  padding: 15px 24px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+.warm-shop-footnote {
+  font-size: 11px;
+  margin-top: 18px;
+}
+/* ---------------------------------------------------------------------------
+   Footer
+   The same wall the story closes on. The photograph is the room; a single
+   wash over it keeps every line of text readable wherever the light falls.
+--------------------------------------------------------------------------- */
+.warm-footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 620px;
+  padding: clamp(70px, 9vw, 140px) clamp(24px, 8vw, 150px)
+    clamp(34px, 3.4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  color: var(--warm-cream);
+}
+.warm-footer-room {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+.warm-footer-room img {
+  object-fit: cover;
+  object-position: center 38%;
+}
+.warm-footer-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(38, 25, 15, 0.5) 0%,
+    rgba(38, 25, 15, 0.34) 46%,
+    rgba(38, 25, 15, 0.5) 100%
+  );
+}
+.warm-footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(40px, 7vw, 120px);
+  padding-bottom: clamp(48px, 6vw, 92px);
+}
+/* The hairline between the two halves, and the one under them. */
+.warm-footer-top > .warm-footer-join {
+  border-left: 1px solid rgba(238, 225, 203, 0.26);
+  padding-left: clamp(28px, 5vw, 92px);
+}
+.warm-footer-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 16px);
+  color: var(--warm-cream);
+}
+.warm-footer-mark {
+  width: clamp(96px, 9.5vw, 160px);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  /* The logo art carries its own margin; pull it back in so the two curves
+     sit level with the wordmark. */
+  margin: -24px -22px -24px -24px;
+}
+.warm-footer-lockup > span {
+  font-size: clamp(34px, 3.6vw, 62px);
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  line-height: 1;
+}
+.warm-footer-line {
+  margin: 0 0 0 clamp(60px, 6.5vw, 116px);
+  font-size: clamp(17px, 1.5vw, 26px);
+  letter-spacing: 0.16em;
+  color: rgba(238, 225, 203, 0.82);
+}
+.warm-experience .warm-footer-join h2 {
+  margin: 0 0 clamp(14px, 1.6vw, 26px);
+  font-weight: 400;
+  font-size: clamp(20px, 1.9vw, 32px);
+  letter-spacing: 0.13em;
+}
+.warm-footer-field {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 520px;
+  padding: clamp(10px, 1vw, 16px) clamp(14px, 1.2vw, 22px);
+  border: 1px solid rgba(238, 225, 203, 0.34);
+}
+.warm-footer-field input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  background: none;
+  color: var(--warm-cream);
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(15px, 1.2vw, 20px);
+  letter-spacing: 0.04em;
+}
+.warm-footer-field input::placeholder {
+  color: rgba(238, 225, 203, 0.6);
+}
+.warm-footer-field input:focus-visible {
+  outline: none;
+}
+.warm-footer-field:focus-within {
+  border-color: rgba(238, 225, 203, 0.7);
+}
+.warm-footer-field button {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border: none;
+  background: none;
+  color: var(--warm-cream);
+  cursor: pointer;
+}
+.warm-footer-field button svg {
+  width: 34px;
+  height: auto;
+}
+.warm-footer-note {
+  min-height: 1.4em;
+  margin: 10px 0 0;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(238, 225, 203, 0.72);
+}
+.warm-footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(34px, 5.5vw, 96px);
+  padding: clamp(34px, 4vw, 64px) 0;
+  border-top: 1px solid rgba(238, 225, 203, 0.26);
+  font-size: clamp(16px, 1.35vw, 23px);
+  letter-spacing: 0.12em;
+}
+.warm-footer-nav a {
+  color: rgba(238, 225, 203, 0.88);
+  transition: color 0.3s ease;
+}
+.warm-footer-nav a:hover {
+  color: var(--warm-cream);
+}
+.warm-footer-base {
+  margin-top: auto;
+  padding-top: clamp(28px, 3.5vw, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: clamp(9px, 0.72vw, 12px);
+  letter-spacing: 0.2em;
+  color: rgba(238, 225, 203, 0.66);
+}
+.warm-footer-legal {
+  margin: 0;
+  display: flex;
+  gap: clamp(20px, 2.6vw, 48px);
+}
+.warm-footer-legal a {
+  transition: color 0.3s ease;
+}
+.warm-footer-legal a:hover {
+  color: var(--warm-cream);
+}
+.warm-motion-toggle {
+  position: fixed;
+  z-index: 15;
+  bottom: 12px;
+  left: 12px;
+  min-height: 28px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: #2f241cdf;
+  color: #eee1cb;
+  padding: 5px 9px;
+}
+.warm-motion-toggle > span {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+.warm-still * {
+  animation: none !important;
+}
+.warm-orbit-note > span {
+  display: block;
+}
+.warm-scroll-cue {
+  position: absolute;
+  z-index: 4;
+  bottom: 4%;
+  right: 5%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--warm-cream);
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  pointer-events: none;
+}
+.warm-scroll-cue i {
+  width: 1px;
+  height: 32px;
+  background: currentColor;
+  transform-origin: top;
+  animation: warm-scroll-invite 2.4s ease-in-out infinite;
+}
+@keyframes warm-scroll-invite {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+.warm-ambient-paused .warm-flame,
+.warm-ambient-paused .warm-fire-glow,
+.warm-ambient-paused .warm-haze,
+.warm-ambient-paused .warm-scroll-cue i {
+  animation-play-state: paused;
+}
+.warm-experience .checkout-dialog {
+  --forest: var(--warm-brown);
+  --moss: #705b47;
+  --paper: var(--warm-cream);
+}
+@keyframes warm-flicker {
+  0%,
+  100% {
+    transform: rotate(-3deg) scaleY(0.96);
+  }
+  45% {
+    transform: rotate(3deg) scaleY(1.04);
+  }
+  70% {
+    transform: rotate(-1deg) scaleX(0.91);
+  }
+}
+@keyframes warm-glow {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+@keyframes warm-drift {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-25px, -15px);
+  }
+}
+@keyframes warm-note-in {
+  from {
+    opacity: 0.3;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-aspect-ratio: 19/10) {
+  .warm-hero {
+    min-height: 700px;
+  }
+  .warm-product-layer {
+    width: 18%;
+    top: 47%;
+  }
+  .warm-heading {
+    top: 15%;
+  }
+}
+@media (max-width: 1100px) and (min-width: 768px) {
+  .warm-heading {
+    left: 24%;
+    top: 23%;
+    font-size: 10.5vw;
+  }
+  .warm-product-layer {
+    width: 27%;
+    left: 55%;
+    top: 53%;
+  }
+  .warm-intro {
+    top: 44%;
+  }
+  .warm-hero-footer > div {
+    gap: 20px;
+  }
+  .warm-story,
+  .warm-shop {
+    gap: 6%;
+    padding: 90px 6%;
+  }
+  .warm-story-image,
+  .warm-shop-portrait {
+    min-height: 530px;
+  }
+}
+@media (max-width: 767px) {
+  .warm-hero {
+    min-height: 740px;
+    height: 100svh;
+    max-height: 1050px;
+  }
+  .warm-nav {
+    top: 22px;
+    left: 7%;
+    right: 6%;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  .warm-wordmark {
+    font-size: 29px;
+  }
+  .warm-nav nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 5px;
+  }
+  .warm-nav nav a {
+    font-size: 12px;
+  }
+  .warm-bag {
+    margin-left: auto;
+  }
+  .warm-foreground {
+    display: none;
+  }
+  .warm-heading {
+    left: 7%;
+    top: 22%;
+    width: 90%;
+    font-size: 15.2vw;
+    line-height: 0.92;
+    letter-spacing: -0.06em;
+  }
+  .warm-heading span + span {
+    font-size: 0.76em;
+    margin-top: 0.12em;
+    letter-spacing: -0.05em;
+  }
+  .warm-intro {
+    left: 7%;
+    top: 40%;
+    max-width: 90%;
+  }
+  .warm-intro p {
+    font-size: 16px;
+    margin-bottom: 9px;
+  }
+  .warm-text-link {
+    font-size: 9px;
+    gap: 13px;
+  }
+  .warm-text-link svg {
+    width: 30px;
+  }
+  .warm-product-layer {
+    width: 43%;
+    left: 48%;
+    top: 59%;
+  }
+  .warm-hero-footer {
+    bottom: 4%;
+    left: 7%;
+    right: 7%;
+    font-size: 12px;
+  }
+  .warm-hero-footer > div {
+    gap: 16px;
+  }
+  .warm-hero-footer > div > span {
+    display: none;
+  }
+  .warm-progress i {
+    width: 40px;
+  }
+  .warm-fire-glow {
+    left: 50%;
+    width: 50%;
+    top: 40%;
+  }
+  .warm-story {
+    display: flex;
+    flex-direction: column;
+    padding: 70px 7%;
+    gap: 45px;
+  }
+  .warm-story-image {
+    width: 100%;
+    min-height: 430px;
+  }
+  .warm-story-copy {
+    width: 100%;
+  }
+  .warm-experience h2 {
+    font-size: 58px;
+    margin: 25px 0;
+  }
+  .warm-story-copy p,
+  .warm-shop-copy > p {
+    font-size: 13px;
+    max-width: 44ch;
+  }
+  .warm-scents {
+    padding: 70px 7%;
+  }
+  .warm-scent-title {
+    display: block;
+  }
+  .warm-scent-title > .warm-eyebrow {
+    margin-top: 0;
+  }
+  .warm-scent-title h2 {
+    width: 100%;
+    font-size: 53px;
+  }
+  .warm-note-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .warm-note-tabs button {
+    font-size: 31px;
+    padding: 18px 0;
+  }
+  .warm-note-copy {
+    min-height: 220px;
+  }
+  .warm-note-copy > p {
+    font-size: 27px;
+  }
+  .warm-shop {
+    grid-template-columns: 1fr;
+    padding: 60px 7%;
+    gap: 45px;
+  }
+  .warm-shop-portrait {
+    min-height: 490px;
+  }
+  .warm-shop-portrait > .warm-candle {
+    width: 63%;
+    margin: 45px auto 20px;
+  }
+  .warm-footer {
+    min-height: 0;
+    /* The bottom padding clears the fixed motion toggle. */
+    padding: 64px 7% 72px;
+  }
+  .warm-footer-top {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+  }
+  .warm-footer-top > .warm-footer-join {
+    border-left: none;
+    border-top: 1px solid rgba(238, 225, 203, 0.26);
+    padding-left: 0;
+    padding-top: 34px;
+  }
+  .warm-footer-mark {
+    width: 78px;
+    margin: -19px -17px -19px -19px;
+  }
+  .warm-footer-line {
+    margin-left: 48px;
+  }
+  /* Four links do not fit on one phone row: two by two, evenly. */
+  .warm-footer-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 22px 24px;
+  }
+  .warm-footer-base {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .warm-motion-toggle > span {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .warm-experience * {
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Position the vessel within the transparent product canvas. */
+.warm-product-layer {
+  width: 25.5%;
+  left: 46.6%;
+  top: 45.8%;
+  transform-origin: center center;
+}
+.warm-flame {
+  left: 47.2%;
+  top: -7%;
+  height: 20%;
+  width: 4.6%;
+}
+@media (max-width: 1100px) and (min-width: 768px) {
+  .warm-product-layer {
+    width: 35%;
+    left: 51%;
+    top: 48%;
+  }
+}
+@media (max-width: 767px) {
+  .warm-product-layer {
+    width: 59%;
+    left: 36%;
+    top: 55%;
+  }
+}
+
+.warm-foreground {
+  clip-path: none;
+  mask-image: radial-gradient(
+    ellipse 31% 34% at 0% 100%,
+    #000 40%,
+    transparent 76%
+  );
+}
+.warm-intro .warm-text-link {
+  font-size: clamp(11px, 0.93vw, 16px);
+  gap: 18px;
+}
+.warm-intro .warm-text-link > span {
+  min-width: 220px;
+}
+@media (max-width: 767px) {
+  .warm-nav > .warm-wordmark {
+    color: var(--warm-cream);
+  }
+  .warm-intro .warm-text-link {
+    font-size: 10px;
+  }
+  .warm-intro .warm-text-link > span {
+    min-width: 145px;
+  }
+}
+
+/* Pinned product portrait: the same vessel moves into this scene. */
+.warm-product-details,
+.warm-static-details {
+  /* Warm controlled brown, not a dark hole: the product has to stay
+     readable through the whole hero -> portrait exposure change. */
+  background:
+    radial-gradient(ellipse at 76% 72%, #b98d5750, transparent 48%),
+    radial-gradient(ellipse at 18% 22%, #9d7d5c40, transparent 55%),
+    linear-gradient(125deg, #423326, #6d523b 55%, #3b2c20);
+  color: var(--warm-cream);
+}
+.warm-product-details {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+/* Section 2 → 3 handoff. The washes warm the room, then lift; the scent
+   chapter is stacked behind this one in the same pinned viewport, so nothing
+   is duplicated and every layer has one entrance and one exit. */
+.warm-wash-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.warm-wash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+.warm-wash--taupe {
+  background: #806653;
+}
+.warm-wash--sand {
+  background: #d8c8b5;
+}
+/* The same tone as the scent chapter's wall, so the lift has no seam. */
+.warm-wash--ivory {
+  background: #eadcc6;
+}
+
+/* Desktop only: the two chapters occupy one pinned viewport. The hero paints
+   above and is taken away layer by layer, which reveals the scent room. */
+.warm-chapters--stacked {
+  position: relative;
+  height: var(--warm-hero-height);
+}
+.warm-chapters--stacked > .warm-hero,
+.warm-chapters--stacked > #about {
+  position: absolute;
+  inset: 0;
+}
+.warm-chapters--stacked > #about {
+  z-index: 0;
+}
+.warm-chapters--stacked > .warm-hero {
+  z-index: 1;
+  /* Transparent by the end of the handoff, so the scent rows stay clickable. */
+  pointer-events: none;
+}
+.warm-chapters--stacked > .warm-hero .warm-nav,
+.warm-chapters--stacked > .warm-hero .warm-intro {
+  pointer-events: auto;
+}
+.warm-chapters--stacked .scent-layers {
+  height: 100%;
+  min-height: 0;
+}
+.warm-focus-content {
+  position: absolute;
+  inset: 0;
+}
+.warm-focus-heading {
+  position: absolute;
+  top: 16%;
+  left: 5%;
+  right: 5%;
+  text-align: center;
+}
+.warm-focus-heading .warm-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.23em;
+}
+.warm-experience .warm-focus-heading h2 {
+  font-size: clamp(42px, 4.5vw, 80px);
+  margin: 15px 0 0;
+  line-height: 1.05;
+}
+.warm-product-orbit {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  width: min(53vh, 560px);
+  height: min(53vh, 560px);
+  transform: translate(-50%, -50%);
+}
+.warm-orbit-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #e9d8bd70;
+  border-radius: 50%;
+}
+.warm-orbit-note {
+  position: absolute;
+  width: 260px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 11px;
+  line-height: 1.65;
+  letter-spacing: 0.015em;
+}
+.warm-orbit-note strong {
+  display: block;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+.warm-orbit-note i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--warm-cream);
+  box-shadow: 0 0 18px #f5dba940;
+}
+.warm-orbit-note--one {
+  right: 85.35%;
+  top: 14.65%;
+  text-align: right;
+  padding-right: 24px;
+  transform: translateY(-50%);
+}
+.warm-orbit-note--one i {
+  right: -4px;
+  top: 50%;
+}
+.warm-orbit-note--two {
+  left: 85.35%;
+  top: 14.65%;
+  padding-left: 24px;
+  transform: translateY(-50%);
+}
+.warm-orbit-note--two i {
+  left: -4px;
+  top: 50%;
+}
+.warm-orbit-note--three {
+  right: 85.35%;
+  top: 85.35%;
+  text-align: right;
+  padding-right: 24px;
+  transform: translateY(-50%);
+}
+.warm-orbit-note--three i {
+  right: -4px;
+  top: 50%;
+}
+.warm-orbit-note--four {
+  left: 85.35%;
+  top: 85.35%;
+  padding-left: 24px;
+  transform: translateY(-50%);
+}
+.warm-orbit-note--four i {
+  left: -4px;
+  top: 50%;
+}
+.warm-focus-caption {
+  position: absolute;
+  top: 88%;
+  left: 5%;
+  right: 5%;
+  text-align: center;
+}
+.warm-focus-caption > span {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.warm-focus-caption > p {
+  font-style: italic;
+  font-size: 23px;
+  margin: 10px 0;
+}
+.warm-static-details {
+  display: none;
+  position: relative;
+  height: 850px;
+  isolation: isolate;
+  overflow: hidden;
+}
+.warm-still .warm-static-details {
+  display: block;
+}
+.warm-static-candle {
+  position: absolute;
+  width: 25.5%;
+  left: 50%;
+  top: 56%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+@media (max-width: 1100px) {
+  .warm-orbit-note {
+    width: 210px;
+  }
+  .warm-orbit-note strong {
+    font-size: 22px;
+  }
+}
+@media (max-width: 767px) {
+  .warm-focus-heading {
+    top: 19%;
+    left: 5%;
+    right: 5%;
+  }
+  .warm-focus-heading .warm-eyebrow {
+    font-size: 9px;
+  }
+  .warm-experience .warm-focus-heading h2 {
+    font-size: 38px;
+    max-width: 340px;
+    margin: 14px auto 0;
+  }
+  .warm-product-orbit {
+    width: 76vw;
+    height: 76vw;
+    max-width: 430px;
+    max-height: 430px;
+    top: 56%;
+  }
+  .warm-orbit-note {
+    width: 45%;
+    font-size: 9px;
+    line-height: 1.4;
+    padding: 0;
+    transform: none;
+  }
+  .warm-orbit-note strong {
+    font-size: 17px;
+    margin-top: 5px;
+  }
+  .warm-orbit-note--one {
+    right: auto;
+    left: 0;
+    top: -18%;
+    text-align: left;
+  }
+  .warm-orbit-note--two {
+    left: auto;
+    right: 0;
+    top: -18%;
+    text-align: right;
+  }
+  .warm-orbit-note--three {
+    right: auto;
+    left: 0;
+    top: 103%;
+    text-align: left;
+  }
+  .warm-orbit-note--four {
+    left: auto;
+    right: 0;
+    top: 103%;
+    text-align: right;
+  }
+  .warm-orbit-note i {
+    display: none;
+  }
+  .warm-orbit-ring:after {
+    content: "";
+    position: absolute;
+    inset: 14%;
+    border: 1px solid #e9d8bd18;
+    border-radius: 50%;
+  }
+  .warm-focus-caption {
+    top: 88%;
+  }
+  .warm-focus-caption > p {
+    font-size: 19px;
+  }
+  .warm-focus-caption > span {
+    font-size: 9px;
+  }
+  .warm-static-details {
+    height: 850px;
+  }
+  .warm-static-candle {
+    width: 59%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .warm-static-details {
+    display: block;
+  }
+}
+
+.warm-orbit-trace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotate(135deg);
+}
+.warm-orbit-progress {
+  fill: none;
+  stroke: var(--warm-cream);
+  stroke-width: 0.3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.warm-static-candle .warm-candle {
+  transform: scale(0.78);
+}
+@media (max-width: 767px) {
+  .warm-static-candle .warm-candle {
+    transform: scale(0.82);
+  }
+}
+
+/* Shared SVG coordinates keep markers precisely on the progress track. */
+.warm-focus-light {
+  position: absolute;
+  inset: 18% 12% 8%;
+  background: radial-gradient(ellipse at 50% 58%, #c7955138, transparent 65%);
+  pointer-events: none;
+}
+.warm-orbit-head {
+  fill: #fff4df;
+  stroke: #fff4df;
+  stroke-width: 0.4;
+}
+.warm-static-details .warm-orbit-head {
+  display: none;
+}
+.warm-orbit-ring {
+  border: 0;
+}
+.warm-orbit-trace {
+  transform: none;
+}
+.warm-orbit-track {
+  fill: none;
+  stroke: #e9d8bd45;
+  stroke-width: 0.25;
+}
+.warm-orbit-progress {
+  stroke: #eee1cb;
+  stroke-width: 0.65;
+  stroke-linecap: round;
+}
+.warm-orbit-dot {
+  fill: #eee1cb;
+  stroke: #eee1cb;
+  stroke-width: 0.35;
+}
+.warm-orbit-ring:after {
+  display: none;
+}
+
+/* Cinematic hero composition built from the supplied room and product PNGs. */
+.warm-hero {
+  min-height: 700px;
+  background: #2c1a11;
+}
+.warm-background {
+  transform-origin: 50% 55%;
+}
+.warm-background img {
+  object-position: center;
+  filter: saturate(1.03) contrast(1.015);
+}
+.warm-nav {
+  top: 5.35%;
+  left: 4.7%;
+  right: auto;
+  display: block;
+}
+.warm-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--warm-cream);
+}
+/* The logo art carries its own margin, so it is set larger than the optical
+   size and pulled back in to sit level with the wordmark. */
+.warm-brand-mark {
+  width: 62px;
+  height: 62px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  margin: -14px -8px -14px -10px;
+}
+.warm-brand-lockup .warm-wordmark {
+  font-size: clamp(25px, 1.95vw, 33px);
+  letter-spacing: 0.34em;
+}
+.warm-hero-eyebrow {
+  position: absolute;
+  top: 12.35%;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(11px, 0.9vw, 15px);
+  letter-spacing: 0.5em;
+  text-shadow: 0 2px 18px rgba(16, 8, 3, 0.35);
+}
+.warm-heading {
+  left: 18%;
+  top: 17.25%;
+  width: 64%;
+  font-size: clamp(68px, 6.55vw, 114px);
+  line-height: 0.9;
+  letter-spacing: -0.022em;
+  text-align: center;
+  text-shadow: 0 4px 28px rgba(15, 8, 4, 0.28);
+}
+.warm-heading-line + .warm-heading-line {
+  font-size: 1em;
+  margin-top: 0.12em;
+  letter-spacing: -0.02em;
+}
+.warm-intro {
+  left: 16.35%;
+  top: 51.55%;
+}
+.warm-intro p {
+  font-size: clamp(16px, 1.25vw, 21px);
+  letter-spacing: 0.2em;
+  line-height: 1.5;
+  margin-bottom: 27px;
+}
+.warm-intro .warm-text-link {
+  gap: 18px;
+  font-size: clamp(10px, 0.78vw, 13px);
+  letter-spacing: 0.24em;
+}
+.warm-intro .warm-text-link > span {
+  min-width: 0;
+  padding: 0;
+}
+.warm-intro .warm-text-link > span:after {
+  display: none;
+}
+.warm-intro .warm-text-link svg {
+  width: 68px;
+  height: 68px;
+  padding: 23px 17px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.warm-product-layer {
+  width: 23%;
+  left: 38.5%;
+  top: 37%;
+}
+.warm-product-layer .warm-candle {
+  filter: drop-shadow(0 24px 17px rgba(27, 13, 4, 0.24))
+    drop-shadow(10px 12px 8px rgba(27, 13, 4, 0.12));
+}
+.warm-product-layer .warm-candle img {
+  position: relative;
+  z-index: 1;
+}
+.warm-contact-shadow {
+  position: absolute;
+  z-index: -1;
+  left: 15%;
+  right: 10%;
+  bottom: 1.5%;
+  height: 5.5%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(20, 10, 4, 0.55), transparent 70%);
+  filter: blur(6px);
+  transform: scaleX(1.05);
+}
+.warm-flame {
+  left: 47.5%;
+  top: 2%;
+  width: 5%;
+  height: 16%;
+  z-index: 2;
+  background: radial-gradient(
+    ellipse at 50% 78%,
+    #fffef1 0 28%,
+    #ffe3a0 48%,
+    #ff9b36 72%,
+    rgba(255, 115, 26, 0.3) 86%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 14px 4px rgba(255, 175, 72, 0.46),
+    0 0 34px 11px rgba(255, 125, 32, 0.17);
+}
+.warm-flame::after {
+  content: "";
+  position: absolute;
+  left: 35%;
+  right: 35%;
+  bottom: 11%;
+  height: 38%;
+  border-radius: 50% 50% 45% 45%;
+  background: #fffdf0;
+  filter: blur(0.4px);
+}
+.warm-foreground,
+.warm-hero-footer {
+  display: none;
+}
+
+@media (max-width: 1100px) and (min-width: 768px) {
+  .warm-heading {
+    left: 12%;
+    width: 76%;
+    font-size: clamp(66px, 8vw, 88px);
+  }
+  .warm-intro {
+    left: 10%;
+  }
+  .warm-product-layer {
+    width: 31%;
+    left: 34.5%;
+    top: 42%;
+  }
+}
+
+@media (max-width: 767px) {
+  .warm-experience {
+    --warm-hero-height: max(100svh, 720px);
+  }
+  .warm-hero {
+    min-height: 720px;
+  }
+  /* The landscape plate is 16/9, so an upright fold crops it on height. Hold
+     the crop on the hearth. */
+  .warm-background img {
+    object-position: 56% center;
+  }
+  .warm-nav {
+    top: 24px;
+    left: 7%;
+    right: auto;
+  }
+  .warm-brand-lockup {
+    gap: 11px;
+  }
+  .warm-brand-mark {
+    width: 50px;
+    height: 50px;
+    margin: -11px -7px -11px -8px;
+  }
+  .warm-brand-lockup .warm-wordmark {
+    font-size: 24px;
+  }
+  .warm-hero-eyebrow {
+    top: 13%;
+    font-size: 9px;
+    letter-spacing: 0.34em;
+  }
+  .warm-heading {
+    left: 6%;
+    top: 17%;
+    width: 88%;
+    font-size: clamp(48px, 14vw, 68px);
+    line-height: 0.92;
+  }
+  .warm-heading-line + .warm-heading-line {
+    font-size: 0.72em;
+    margin-top: 0.18em;
+    letter-spacing: -0.015em;
+  }
+  .warm-intro {
+    left: 7%;
+    top: 42%;
+  }
+  .warm-intro p {
+    font-size: 14px;
+    letter-spacing: 0.16em;
+  }
+  .warm-intro .warm-text-link {
+    font-size: 9px;
+    gap: 13px;
+  }
+  .warm-intro .warm-text-link svg {
+    width: 52px;
+    height: 52px;
+    padding: 17px 13px;
+  }
+  .warm-product-layer {
+    width: 52%;
+    left: 24%;
+    top: 57%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The upright fold
+   A phone held upright is narrower than the portrait plate (941x1672), so
+   `cover` fills the height and crops only the sides. Every vertical figure
+   below is therefore a fixed fraction of the fold at any phone size: the
+   plinth the vessel stands on is always 71% of the way down, and the vessel
+   itself is sized off the height so it scales with the plate rather than
+   with the screen's width.
+
+   The guard is an aspect ratio, not a width: a tablet held upright is wider
+   than the plate and would crop it top and bottom instead, which moves the
+   stone. Those sizes keep the landscape plate.
+   --------------------------------------------------------------------------- */
+@media (max-width: 767px) and (max-aspect-ratio: 3 / 5) {
+  /* Every figure here is a fraction of the fold, so the fold is the fold:
+     the 720px floor the wider breakpoints keep would push the invitation and
+     the scroll cue off a short screen. */
+  .warm-experience {
+    --warm-hero-height: 100svh;
+  }
+  .warm-hero {
+    height: 100svh;
+    min-height: 0;
+    max-height: none;
+  }
+  /* Hold the side crop on the plinth, not on the middle of the picture. */
+  .warm-background img {
+    object-position: 62% center;
+  }
+  /* One centred column down the plate: name, headline, the two lines, then
+     the vessel on the stone and the invitation under it. */
+  .warm-heading {
+    left: 4%;
+    top: 16.5%;
+    width: 92%;
+    text-align: center;
+    /* Both axes bind on a phone: the width sets how long a line can be, the
+       height sets how much room the two lines may take before they run into
+       the couplet below them. */
+    font-size: min(13.2vw, 7.4vh, 64px);
+    line-height: 0.94;
+  }
+  .warm-heading-line + .warm-heading-line {
+    font-size: 0.96em;
+    margin-top: 0.1em;
+    letter-spacing: -0.03em;
+  }
+  /* The block spans the fold so its two parts can be placed against the
+     plate: the couplet under the headline, the invitation under the stone.
+     They stay one element, so the timeline still fades them together. */
+  .warm-intro {
+    left: 7%;
+    right: 7%;
+    top: 0;
+    bottom: 0;
+    max-width: none;
+    text-align: center;
+  }
+  .warm-intro p {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 32%;
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    line-height: 1.75;
+  }
+  /* The link becomes the fold's one solid control, under the stone. */
+  .warm-intro .warm-text-link {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    bottom: 13.5%;
+    justify-content: center;
+    gap: 14px;
+    min-height: 52px;
+    border-radius: 999px;
+    background: var(--warm-cream);
+    color: #2a1a10;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    box-shadow: 0 14px 34px rgba(22, 12, 5, 0.42);
+  }
+  .warm-intro .warm-text-link > span {
+    padding: 0;
+    text-indent: 0.22em;
+  }
+  /* No underline on a filled control. */
+  .warm-intro .warm-text-link > span:after {
+    display: none;
+  }
+  /* The desktop link rings its arrow in a circle; the filled pill does not. */
+  .warm-intro .warm-text-link svg {
+    width: 30px;
+    height: 14px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+  }
+  /* Sized off the fold's height, because that is the axis the plate fills:
+     the vessel then keeps the same share of the stone at every phone size.
+     `margin-inline: auto` centres it without a transform, which GSAP owns. */
+  .warm-product-layer {
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: auto;
+    height: 25.5%;
+    aspect-ratio: 1145 / 1374;
+    top: 49.7%;
+  }
+  /* The plate's own stone takes the contact shadow, so the vessel sits on the
+     surface instead of floating above it. */
+  .warm-product-layer .warm-contact-shadow {
+    left: 7%;
+    right: 5%;
+    bottom: 0;
+    height: 4.5%;
+    background: radial-gradient(ellipse, rgba(24, 12, 4, 0.62), transparent 72%);
+    filter: blur(7px);
+  }
+  /* The plate carries the room's own light, so the painted glow and haze
+     would only fog it. */
+  .warm-fire-glow,
+  .warm-haze {
+    display: none;
+  }
+  .warm-scroll-cue {
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    flex-direction: column-reverse;
+    justify-content: center;
+    gap: 12px;
+  }
+  .warm-scroll-cue i {
+    height: 26px;
+  }
+}
+
+/* The shortest upright folds still in use — a 568px-tall phone. The headline
+   and the couplet are within ten pixels of each other there, so this pass
+   buys the type its air back. */
+@media (max-width: 767px) and (max-aspect-ratio: 3 / 5) and (max-height: 640px) {
+  /* The wordmark reaches about 74px down, so the eyebrow cannot rise past it. */
+  .warm-hero-eyebrow {
+    top: 13%;
+  }
+  .warm-heading {
+    top: 19%;
+    font-size: min(12.4vw, 7vh);
+  }
+  .warm-intro p {
+    top: 35%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Preloader
+   The plate covers the hero until the window has finished loading. The
+   reference artwork carries its own baked ring and figure, so it is held well
+   out of focus and used only as room light; the ring, the logo and the figure
+   above it are live.
+--------------------------------------------------------------------------- */
+.warm-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #3a2b1e;
+  color: var(--warm-cream, oklch(91% 0.025 75));
+  font-family: var(--font-cormorant), Georgia, serif;
+  transition:
+    opacity 0.72s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.72s;
+}
+.warm-preloader-plate {
+  position: absolute;
+  inset: -8%;
+  pointer-events: none;
+}
+.warm-preloader-plate img {
+  object-fit: cover;
+  object-position: center;
+  filter: blur(54px) saturate(1.06) brightness(0.92);
+  transform: scale(1.18);
+}
+.warm-preloader-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      120% 90% at 50% 46%,
+      rgba(58, 43, 30, 0) 0%,
+      rgba(30, 21, 13, 0.45) 62%,
+      rgba(22, 15, 9, 0.82) 100%
+    );
+}
+/* The light that falls in from the upper left of the reference. */
+.warm-preloader-shaft {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    72% 88% at 4% -6%,
+    rgba(255, 226, 186, 0.3) 0%,
+    rgba(255, 216, 170, 0.08) 38%,
+    rgba(255, 210, 160, 0) 66%
+  );
+}
+.warm-preloader-core {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition:
+    opacity 0.5s ease,
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.warm-preloader-ring {
+  position: relative;
+  width: clamp(200px, 27vw, 330px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+.warm-preloader-ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Puts the start of the stroke at twelve o'clock; the arc then fills
+     clockwise, in step with the bead. */
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+.warm-preloader-ring circle {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+/* The glass lens. A full disc of the room behind it, blurred and warmed, with
+   one thin bright rim around the edge and a soft shadow under it — a piece of
+   frosted glass laid on the wall. */
+.warm-preloader-glass {
+  position: absolute;
+  inset: 2%;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 32% 26%,
+      rgba(255, 244, 224, 0.2),
+      rgba(255, 238, 212, 0.07) 46%,
+      rgba(120, 92, 62, 0.06) 100%
+    ),
+    linear-gradient(
+      150deg,
+      rgba(255, 246, 229, 0.13),
+      rgba(255, 240, 216, 0.03) 52%,
+      rgba(255, 243, 222, 0.1)
+    );
+  -webkit-backdrop-filter: blur(10px) saturate(1.18) brightness(1.06);
+  backdrop-filter: blur(10px) saturate(1.18) brightness(1.06);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 240, 214, 0.34),
+    inset 0 1.5px 2px rgba(255, 246, 228, 0.5),
+    inset 0 -2px 3px rgba(255, 231, 196, 0.16),
+    inset 0 0 34px rgba(255, 232, 198, 0.07),
+    0 10px 34px rgba(48, 32, 20, 0.34);
+}
+/* The rim. One bright hairline round the edge, brightest where the light
+   falls, so the disc reads as glass with thickness. */
+.warm-preloader-sheen {
+  position: absolute;
+  inset: 2%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 198deg,
+    rgba(255, 244, 222, 0) 0deg,
+    rgba(255, 248, 232, 0.85) 34deg,
+    rgba(255, 240, 214, 0.1) 88deg,
+    rgba(255, 240, 214, 0) 236deg,
+    rgba(255, 246, 226, 0.5) 292deg,
+    rgba(255, 244, 222, 0) 342deg
+  );
+  -webkit-mask: radial-gradient(
+    closest-side,
+    transparent calc(100% - 2.5px),
+    #000 calc(100% - 1.5px)
+  );
+  mask: radial-gradient(
+    closest-side,
+    transparent calc(100% - 2.5px),
+    #000 calc(100% - 1.5px)
+  );
+}
+/* The unrun part of the ring: present, but only just. */
+.warm-preloader-track {
+  stroke: rgba(238, 225, 203, 0.16);
+  stroke-width: 1.1;
+}
+/* The run part: the warm light the bead lays down behind itself. By 100% it
+   has closed the circle. */
+.warm-preloader-arc {
+  stroke: url(#warm-preloader-silver);
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(255, 224, 176, 0.7))
+    drop-shadow(0 0 16px rgba(226, 169, 90, 0.45));
+}
+/* The bead that rides the end of the arc. */
+/* The arc and the bead are written every frame from the loop in Preloader,
+   so neither carries a transition: a quarter-second ease on a per-frame write
+   only makes the ring trail the number it is reporting. */
+.warm-preloader-head {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.warm-preloader-head:after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #fffaf0, #ffe6b8 60%, #e0ab60);
+  box-shadow:
+    0 0 6px 1px rgba(255, 233, 190, 0.95),
+    0 0 20px 5px rgba(226, 169, 90, 0.6);
+}
+.warm-preloader-logo {
+  position: relative;
+  width: 58%;
+  height: auto;
+  opacity: 0.95;
+  animation: warm-preloader-breathe 4.2s ease-in-out infinite;
+}
+@keyframes warm-preloader-breathe {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.018);
+  }
+}
+.warm-preloader-label {
+  margin: 26px 0 0;
+  font-size: clamp(11px, 0.85vw, 14px);
+  letter-spacing: 0.55em;
+  text-indent: 0.55em;
+  color: rgba(242, 229, 208, 0.86);
+}
+.warm-preloader-rule {
+  display: block;
+  width: 34px;
+  height: 1px;
+  margin: 16px 0;
+  background: rgba(238, 225, 203, 0.42);
+}
+.warm-preloader-percent {
+  margin: 0;
+  font-size: clamp(12px, 0.95vw, 16px);
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  font-variant-numeric: tabular-nums;
+  color: rgba(242, 229, 208, 0.72);
+}
+/* Leaving: the figure settles first, then the plate lifts off the hero. */
+.warm-preloader--leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.warm-preloader--leaving .warm-preloader-core {
+  opacity: 0;
+  transform: translateY(-12px) scale(1.04);
+}
+@media (prefers-reduced-motion: reduce) {
+  .warm-preloader,
+  .warm-preloader-core,
+  .warm-preloader-arc,
+  .warm-preloader-head {
+    transition-duration: 0.01ms;
+  }
+  .warm-preloader-logo {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Entrance state
+   Everything the intro timeline owns starts hidden in CSS, so nothing can
+   paint a frame between hydration and the first tween.
+--------------------------------------------------------------------------- */
+.warm-boot .warm-nav,
+.warm-boot .warm-product-layer,
+.warm-boot .warm-hero-eyebrow,
+.warm-boot .warm-intro > *,
+.warm-boot .warm-scroll-cue,
+.warm-boot .warm-heading-letter {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Scroll is held until the entrance is over, so nothing interrupts it. */
+html.warm-locked,
+html.warm-locked body {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+   Short viewports
+   A phone held sideways, or a half-height window. Here height is the scarce
+   axis, not width, so the width breakpoints above do not help: the hero is
+   still asked for 700px inside a 390px fold, which pushes the intro and the
+   hero footer past the bottom edge. These rules size the hero to the fold and
+   scale the headline off the viewport height instead of its width.
+   --------------------------------------------------------------------------- */
+@media (max-height: 560px) and (min-width: 768px) {
+  .warm-hero {
+    height: 100svh;
+    min-height: 0;
+    max-height: none;
+  }
+  .warm-heading {
+    top: 14%;
+    left: 22%;
+    width: 74%;
+    font-size: clamp(40px, 12.5vh, 96px);
+  }
+  .warm-hero-eyebrow {
+    font-size: 10px;
+  }
+  .warm-intro {
+    top: 46%;
+  }
+  .warm-intro p {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+  .warm-cta {
+    font-size: 11px;
+  }
+  .warm-product-layer {
+    width: 15%;
+    top: 54%;
+  }
+  .warm-hero-footer {
+    bottom: 3%;
+    font-size: 11px;
+  }
+  /* The pause control sits bottom-left, exactly where the hero footer's first
+     line lands once the fold is this short. Move it out of the way. */
+  .warm-motion-toggle {
+    bottom: auto;
+    top: 12px;
+    left: auto;
+    right: 12px;
+  }
+  .warm-focus-heading {
+    top: 12%;
+  }
+  .warm-experience .warm-focus-heading h2 {
+    font-size: clamp(26px, 7.5vh, 52px);
+  }
+  .warm-focus-caption {
+    top: 86%;
+  }
+  .warm-orbit-note {
+    font-size: 9px;
+  }
+  .warm-orbit-note strong {
+    font-size: 15px;
+  }
+}

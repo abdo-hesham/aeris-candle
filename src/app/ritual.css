@@ -1,0 +1,641 @@
+/* Section 4 — "Made for slower evenings." The three notes of Section 3 come
+   back together as one object, composed to the approved reference: centred
+   heading, the candle as the hero in the middle of the frame, the offer on
+   the right, and the room's own daylight left alone. Layers stay separate
+   assets; the base state below is the finished composition, so a reader with
+   reduced motion — and any frame before the timeline exists — sees the room
+   already assembled. */
+.ritual {
+  --ritual-ink: #f6ecdc;
+  --ritual-muted: #decdb4;
+  --ritual-line: rgba(246, 236, 220, 0.34);
+  --ritual-cream: #f4ece0;
+  --ritual-deep: #38281a;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: 100svh;
+  min-height: 700px;
+  color: var(--ritual-ink);
+}
+
+/* ---------- layered still life ---------- */
+.ritual-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+/* Room, still life, atmosphere, copy — four planes, in that order. The stage
+   is capped against the viewport's height as well as its width: a purely
+   width-driven 16/10 frame is taller than a wide, short viewport and pushes
+   the whole still life below the fold. */
+.ritual-stage {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 1;
+  width: min(100%, calc(max(100svh, 700px) * 2));
+  transform: translateX(-50%);
+  aspect-ratio: 16 / 10;
+  pointer-events: none;
+}
+.ritual-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.ritual-layer {
+  position: absolute;
+}
+/* Pointer depth rides the image's own `translate`, because GSAP owns the
+   layer's `transform` for the handoff and the scroll parallax. */
+.ritual-layer img {
+  display: block;
+  width: 100%;
+  height: auto;
+  translate: calc(var(--pointer-x, 0) * var(--depth, 0) * 1px)
+    calc(var(--pointer-y, 0) * var(--depth, 0) * 1px);
+}
+.ritual-layer--background {
+  inset: -3%;
+  --depth: 2;
+}
+.ritual-layer--background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 48% 56%;
+}
+/* Scenery, not an event. Soft-light at a fixed low exposure: it shapes the
+   wall and never competes with the candle. */
+.ritual-layer--light {
+  inset: -4%;
+  opacity: 0.3;
+  mix-blend-mode: soft-light;
+}
+.ritual-layer--light img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% 30%;
+  animation: ritual-sun 26s ease-in-out infinite alternate;
+}
+/* Stacking inside the stage, written down rather than left to DOM order: the
+   stone, then the notes behind the candle, then the candle, then the linen
+   that falls across the front of the frame. */
+.ritual-layer--platform {
+  left: 13.3%;
+  bottom: -28.8%;
+  width: 93%;
+  --depth: 4;
+  z-index: 1;
+}
+.ritual-layer--sandalwood {
+  left: 24.1%;
+  bottom: 15.1%;
+  width: 22.7%;
+  --depth: 6;
+  z-index: 2;
+}
+.ritual-layer--amber {
+  left: 56.2%;
+  bottom: 13.5%;
+  width: 13.5%;
+  --depth: 7;
+  z-index: 2;
+}
+.ritual-layer--cedar {
+  left: 54.1%;
+  bottom: 22.9%;
+  width: 19.3%;
+  --depth: 6;
+  z-index: 2;
+}
+.ritual-layer--candle {
+  /* Centred on 50% of the stage; the width and the left edge move together so
+     the vessel keeps the same spot on the stone when it is resized. */
+  left: 35.3%;
+  bottom: 9.8%;
+  width: 29.4%;
+  --depth: 3;
+  z-index: 3;
+  /* The vessel is lit from the upper left, like the room. A single soft
+     contact shadow seats it on the stone instead of pasting it over. */
+  filter: drop-shadow(22px 26px 20px rgba(28, 16, 6, 0.32));
+}
+.ritual-layer--linen {
+  left: 70.6%;
+  bottom: 2.8%;
+  width: 40%;
+  --depth: 9;
+  z-index: 4;
+  transform-origin: 50% 100%;
+}
+.ritual-layer--linen .ritual-drift {
+  display: block;
+  animation: ritual-cloth 34s ease-in-out infinite alternate;
+}
+
+/* The candle breathes on a wrapper of its own: GSAP holds the layer's
+   transform, pointer depth holds the image's, this holds the drift. */
+.ritual-breathe {
+  display: block;
+  position: relative;
+  animation: ritual-breathe 11s ease-in-out infinite;
+}
+
+/* Depth for the copy, kept to a vignette: the reference room is bright, and
+   a raking scrim across the wall would darken the still life with it. */
+.ritual-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(40, 26, 16, 0.3),
+      rgba(40, 26, 16, 0) 34%,
+      rgba(40, 26, 16, 0) 78%,
+      rgba(34, 22, 13, 0.26) 100%
+    ),
+    radial-gradient(
+      118% 96% at 34% 44%,
+      rgba(38, 24, 15, 0) 46%,
+      rgba(38, 24, 15, 0.34) 100%
+    );
+  opacity: 0;
+}
+/* ---------- copy ---------- */
+.ritual-bar,
+.ritual-copy,
+.ritual-offer,
+.ritual-foot {
+  position: absolute;
+  z-index: 3;
+}
+.ritual-bar {
+  top: clamp(22px, 4.4vh, 44px);
+  left: clamp(20px, 4vw, 62px);
+  right: clamp(20px, 4vw, 62px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.ritual-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(10px, 1.2vw, 18px);
+  font-family: var(--font-manrope), sans-serif;
+  font-size: clamp(13px, 1.05vw, 19px);
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-decoration: none;
+  color: var(--ritual-ink);
+}
+.ritual-logo-mark {
+  /* The logo art carries its own margin, so it is set larger than the optical
+     size and pulled back in to sit level with the wordmark. */
+  width: clamp(58px, 5.4vw, 92px);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin: -14px -10px -14px -12px;
+}
+.ritual-shop {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 46px;
+  padding: 0 22px 0 26px;
+  border: 1px solid var(--ritual-line);
+  border-radius: 999px;
+  background: none;
+  color: var(--ritual-ink);
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease;
+}
+.ritual-shop:hover {
+  background: rgba(246, 236, 220, 0.12);
+  border-color: rgba(246, 236, 220, 0.6);
+}
+.ritual-shop svg {
+  width: 26px;
+  height: 12px;
+}
+
+.ritual-copy {
+  top: clamp(70px, 8.6vh, 112px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1220px, 88%);
+  text-align: center;
+}
+.ritual-heading {
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  line-height: 1;
+}
+/* The mask is exactly as tall as the line it holds, so a 112% shift always
+   clears it. Descender room belongs to the line, inside the mask. */
+.ritual-heading-mask {
+  display: block;
+  overflow: hidden;
+}
+.ritual-heading-mask > * {
+  display: block;
+}
+.ritual-kicker {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: clamp(10px, 0.82vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.58em;
+  text-indent: 0.58em;
+  text-transform: uppercase;
+  color: var(--ritual-muted);
+  padding-bottom: clamp(14px, 2vh, 26px);
+}
+.ritual-title {
+  font-size: clamp(38px, 5.3vw, 98px);
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  padding-bottom: 0.08em;
+  /* One line, as in the reference: the headline is the width of the frame,
+     not of a text column. */
+  white-space: nowrap;
+}
+.ritual-intro {
+  margin: clamp(10px, 1.5vh, 20px) auto 0;
+  max-width: 46ch;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(15px, 1.18vw, 22px);
+  line-height: 1.62;
+  color: var(--ritual-ink);
+}
+
+.ritual-offer {
+  right: clamp(20px, 4.5vw, 70px);
+  top: clamp(300px, 38%, 460px);
+  width: min(300px, 24vw);
+}
+.ritual-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 0 clamp(20px, 2.8vh, 34px);
+  padding-top: clamp(16px, 2.2vh, 26px);
+  border-top: 1px solid var(--ritual-line);
+}
+.ritual-specs div {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding-left: clamp(14px, 1.4vw, 24px);
+}
+.ritual-specs div:first-child {
+  padding-left: 0;
+}
+.ritual-specs div + div {
+  border-left: 1px solid var(--ritual-line);
+}
+.ritual-specs dt {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: clamp(14px, 1.08vw, 19px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+.ritual-specs dd {
+  margin: 0;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ritual-muted);
+}
+.ritual-buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  width: 100%;
+  min-height: 62px;
+  padding: 0 24px 0 30px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ritual-cream);
+  color: var(--ritual-deep);
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    transform 200ms ease;
+}
+.ritual-buy svg {
+  width: 30px;
+  height: 14px;
+}
+.ritual-buy path,
+.ritual-shop path {
+  stroke-width: 1.2;
+}
+.ritual-buy:hover {
+  background: #fff9ee;
+}
+.ritual-buy:active {
+  transform: scale(0.99);
+}
+
+.ritual-foot {
+  /* Clear of the global motion toggle, which lives in the bottom-left. */
+  bottom: clamp(46px, 6.5vh, 66px);
+  left: clamp(20px, 4vw, 62px);
+  right: clamp(20px, 4vw, 62px);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(246, 236, 220, 0.72);
+  pointer-events: none;
+}
+
+.ritual :focus-visible {
+  outline: 2px solid #f0c98a;
+  outline-offset: 6px;
+}
+.ritual ::selection {
+  color: var(--ritual-deep);
+  background: #e9d3ae;
+}
+
+/* ---------- ambient ---------- */
+@keyframes ritual-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes ritual-sun {
+  from {
+    transform: translateX(-4px);
+    opacity: 0.92;
+  }
+  to {
+    transform: translateX(4px);
+    opacity: 1;
+  }
+}
+@keyframes ritual-cloth {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -6px -3px;
+  }
+}
+@keyframes ritual-flicker {
+  0%,
+  100% {
+    transform: rotate(-2.5deg) scaleY(0.97);
+    filter: brightness(0.97);
+  }
+  45% {
+    transform: rotate(2.5deg) scaleY(1.04);
+    filter: brightness(1.05);
+  }
+  70% {
+    transform: rotate(-1deg) scaleX(0.93);
+    filter: brightness(1);
+  }
+}
+.warm-ambient-paused .ritual-breathe,
+.warm-ambient-paused .ritual-drift,
+.warm-ambient-paused .ritual-layer--light img {
+  animation-play-state: paused;
+}
+
+/* Desktop only: Section 4 shares the pinned viewport with Sections 1–3, so
+   the handoff can take one room away while it builds the next. Only the two
+   controls take pointer events, and both are hidden until the handoff
+   reveals them, so Section 4 never sits invisibly on Section 3's rows. */
+.warm-chapters--stacked > #shop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.ritual-bar,
+.ritual-copy,
+.ritual-offer {
+  pointer-events: none;
+}
+.ritual-logo,
+.ritual-shop,
+.ritual-buy {
+  pointer-events: auto;
+}
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 1100px) and (min-width: 768px) {
+  .ritual-copy {
+    width: min(720px, 84%);
+    top: clamp(78px, 10vh, 112px);
+  }
+  .ritual-offer {
+    top: auto;
+    bottom: clamp(64px, 10vh, 110px);
+    width: min(260px, 30vw);
+  }
+  .ritual-layer--candle {
+    left: 31.7%;
+    width: 34.6%;
+  }
+}
+@media (max-width: 767px) {
+  /* Phones do not try to hold the desktop still life. One column: brand,
+     heading, the candle itself, the notes, the numbers, the offer. The
+     content wrappers collapse so every part can be ordered against the
+     stage, which leaves the overlay and takes its place in the flow. */
+  .ritual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    min-height: 100svh;
+    /* The bottom rail clears the global motion toggle, which is fixed in the
+       bottom-left corner. */
+    padding: clamp(20px, 3.2vh, 34px) 6.5% clamp(44px, 5.8vh, 60px);
+    text-align: center;
+  }
+  .ritual-copy,
+  .ritual-offer {
+    display: contents;
+  }
+  .ritual-layer--background img {
+    object-position: 52% 62%;
+  }
+  /* Back into the flow: the desktop offsets would otherwise still pull
+     these two out of their place in the column. */
+  .ritual-bar {
+    position: relative;
+    inset: auto;
+    order: 1;
+    width: 100%;
+    margin-bottom: clamp(20px, 3.6vh, 36px);
+  }
+  .ritual-copy,
+  .ritual-heading {
+    order: 2;
+  }
+  .ritual-heading {
+    position: relative;
+    transform: none;
+    width: 100%;
+  }
+  .ritual-kicker {
+    padding-bottom: clamp(10px, 1.5vh, 16px);
+  }
+  /* The reference sets the headline as two lines of display serif, so it is
+     sized to the column and allowed to break. */
+  .ritual-title {
+    font-size: clamp(38px, 12.4vw, 58px);
+    line-height: 1.02;
+    white-space: normal;
+  }
+  /* The copy reads as one block — kicker, headline, promise — and the still
+     life follows it, as in the reference. */
+  .ritual-intro {
+    order: 3;
+    max-width: none;
+    margin-top: clamp(12px, 1.8vh, 20px);
+    font-size: clamp(15px, 4.2vw, 19px);
+    line-height: 1.5;
+  }
+  /* The stage is cropped to the still life itself: a taller frame would only
+     add empty wall between the promise and the stone. */
+  .ritual-stage {
+    position: relative;
+    order: 4;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: 110%;
+    margin: clamp(8px, 1.6vh, 18px) 0 0;
+    aspect-ratio: 8 / 5;
+  }
+  .ritual-specs {
+    order: 5;
+    width: 100%;
+    max-width: none;
+    margin-top: clamp(30px, 8.2vh, 70px);
+    margin-bottom: clamp(16px, 2.4vh, 26px);
+    padding-top: clamp(14px, 2vh, 22px);
+  }
+  .ritual-buy {
+    order: 6;
+    width: 100%;
+    max-width: none;
+  }
+  .ritual-foot {
+    position: relative;
+    inset: auto;
+    order: 7;
+    width: 100%;
+    margin-top: clamp(18px, 3vh, 32px);
+  }
+  .ritual-layer--platform {
+    left: 4%;
+    bottom: -10%;
+    width: 92%;
+  }
+  .ritual-layer--candle {
+    left: 25%;
+    bottom: 17%;
+    width: 53%;
+  }
+  /* The three notes keep their places around the vessel, as on the desktop
+     still life. The phone stage is wider relative to the candle, so each one
+     is scaled and pushed outward by the same factor the candle grew by. */
+  .ritual-layer--sandalwood {
+    left: 8%;
+    bottom: 24%;
+    width: 39%;
+  }
+  .ritual-layer--cedar {
+    left: 57%;
+    bottom: 40%;
+    width: 37%;
+  }
+  .ritual-layer--amber {
+    left: 61%;
+    bottom: 24%;
+    width: 25%;
+  }
+  /* The cloth is cut off by the column on a phone, so it is left out of the
+     still life entirely. */
+  .ritual-layer--linen {
+    left: 50%;
+    bottom: -6%;
+    width: 80%;
+    display: none;
+  }
+  /* The wall behind a centred column needs even shade, not a vignette. */
+  .ritual-shade {
+    background: linear-gradient(
+      180deg,
+      rgba(30, 19, 11, 0.6) 0%,
+      rgba(30, 19, 11, 0.18) 26%,
+      rgba(30, 19, 11, 0.52) 62%,
+      rgba(30, 19, 11, 0.8) 100%
+    );
+  }
+  .ritual-stage {
+    z-index: 3;
+  }
+  .ritual-atmosphere {
+    z-index: 4;
+  }
+  /* display: contents drops the wrappers' boxes, so the copy carries its
+     own stacking above the atmosphere. */
+  .ritual-heading,
+  .ritual-intro,
+  .ritual-specs,
+  .ritual-buy {
+    position: relative;
+    z-index: 5;
+  }
+  .ritual-bar,
+  .ritual-foot {
+    z-index: 5;
+  }
+}
+/* Motion paused by the reader: restore the finished fixed vignette. */
+.warm-still .ritual-shade {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ritual * {
+    animation: none !important;
+  }
+  .ritual-shade {
+    opacity: 1;
+  }
+}

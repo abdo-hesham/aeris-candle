@@ -1,0 +1,34 @@
+[
+  {
+    "file": "public/assets/story/sandalwood.webp",
+    "dimensions": [
+      1440,
+      1080
+    ],
+    "bytes": 68312
+  },
+  {
+    "file": "public/assets/story/amber.webp",
+    "dimensions": [
+      1440,
+      1080
+    ],
+    "bytes": 46552
+  },
+  {
+    "file": "public/assets/story/cedar.webp",
+    "dimensions": [
+      1440,
+      1080
+    ],
+    "bytes": 125750
+  },
+  {
+    "file": "public/assets/story/purchase.webp",
+    "dimensions": [
+      1200,
+      1500
+    ],
+    "bytes": 79066
+  }
+]

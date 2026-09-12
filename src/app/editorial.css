@@ -1,0 +1,145 @@
+/* Section 4 — the ritual. A gallery-quiet close on warm paper. */
+.warm-ritual {
+  --editorial-paper: #ede1cd;
+  --editorial-ink: #3b3026;
+  --editorial-muted: #6b5b4a;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--editorial-paper);
+  color: var(--editorial-ink);
+  padding: clamp(90px, 10vw, 150px) 7% clamp(80px, 8vw, 120px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.warm-experience .warm-letter-heading {
+  font-size: clamp(52px, 5.4vw, 88px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin: 0;
+  font-weight: 300;
+}
+.warm-heading-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.warm-letter {
+  display: inline-block;
+}
+.warm-ritual .warm-letter-heading {
+  max-width: 16ch;
+  font-size: clamp(44px, 4.3vw, 70px);
+}
+.warm-ritual-copy {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--editorial-muted);
+  max-width: 46ch;
+  margin: 22px 0 6px;
+}
+.warm-ritual-glow {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: min(60vw, 620px);
+  height: min(60vw, 620px);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, #f0b46e5c, transparent 70%);
+  filter: blur(10px);
+  z-index: 0;
+  pointer-events: none;
+}
+.warm-ritual-candle {
+  position: relative;
+  z-index: 1;
+  width: min(30vw, 290px);
+  margin: 26px 0 10px;
+}
+.warm-ritual-candle .warm-candle {
+  width: 100%;
+}
+.warm-ritual-notes {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--editorial-muted);
+  margin: 6px 0 26px;
+}
+.warm-ritual-specs {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid #3b302630;
+}
+.warm-ritual .warm-price {
+  font-size: 40px;
+  margin: 0 0 28px;
+  font-variant-numeric: tabular-nums;
+}
+.warm-ritual .warm-buy {
+  display: inline-flex;
+  justify-content: center;
+  padding: 17px 30px;
+  min-height: 56px;
+  background: #3b3026;
+  color: #f2eadf;
+  transition:
+    background 180ms,
+    transform 180ms;
+}
+.warm-ritual .warm-buy:hover {
+  background: #584333;
+}
+.warm-ritual .warm-buy:active {
+  transform: scale(0.985);
+}
+.warm-ritual .warm-shop-footnote {
+  margin-top: 24px;
+}
+.warm-ritual :focus-visible {
+  outline: 2px solid #6e5136;
+  outline-offset: 6px;
+}
+.warm-ritual ::selection {
+  color: #f0e9de;
+  background: #584333;
+}
+@media (max-width: 767px) {
+  .warm-experience .warm-letter-heading {
+    font-size: clamp(43px, 12vw, 62px);
+  }
+  .warm-ritual-copy {
+    font-size: 14px;
+  }
+  .warm-ritual {
+    padding-top: 72px;
+  }
+  .warm-ritual .warm-letter-heading {
+    font-size: clamp(38px, 10.5vw, 58px);
+  }
+  .warm-ritual-candle {
+    width: 52vw;
+  }
+  .warm-ritual-glow {
+    width: 90vw;
+    height: 90vw;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .warm-letter {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

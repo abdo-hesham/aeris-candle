@@ -1,0 +1,17 @@
+import { chromium } from '@playwright/test';
+import { mkdir } from 'node:fs/promises';
+await mkdir('test-results/scene',{recursive:true});
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:900}});
+page.on('pageerror',e=>console.log('PAGE ERROR',e.message));
+page.on('console',m=>{if(m.type()==='error')console.log('CONSOLE ERROR',m.text().slice(0,3500));});
+await page.goto('http://localhost:3000/',{timeout:90000});
+await page.locator('.webgl-forest.ready').waitFor({timeout:90000});
+await page.locator('.webgl-candle.ready').waitFor({timeout:90000});
+await page.getByRole('button',{name:'Pause scene motion'}).click();
+console.log(await page.locator('.hero-webgl').evaluateAll(els=>els.map(el=>({...el.dataset}))));
+await page.screenshot({path:'test-results/scene/desktop.png'});
+await page.locator('.product-position').screenshot({path:'test-results/scene/candle.png'});
+await page.setViewportSize({width:390,height:844});
+await page.screenshot({path:'test-results/scene/mobile.png'});
+await browser.close();
