@@ -1,6 +1,6 @@
 import Image from "next/image";
 import HeroWebGL from "./HeroWebGL";
-import forest from "../../../public/assets/forest-background.png";
+import forest from "../../../public/assets/forest-background.webp";
 
 export default function HeroBackground() {
   return (

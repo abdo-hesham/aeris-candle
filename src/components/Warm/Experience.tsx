@@ -249,10 +249,11 @@ export default function WarmExperience() {
           className="warm-static-details"
           aria-label="The candle in detail"
         >
-          <ProductDetails />
-          <div className="warm-static-candle">
-            <Candle />
-          </div>
+          <ProductDetails>
+            <div className="warm-static-candle">
+              <Candle />
+            </div>
+          </ProductDetails>
         </section>
         <div id="about">
           <ScentLayers

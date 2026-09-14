@@ -117,6 +117,23 @@ export function animateWarmScene(
     : CHAPTER_UNITS;
   let scrubbed: gsap.core.Timeline | undefined;
 
+  // Where the ring sits inside the fold, read off the live layout. The ring is
+  // inside `.warm-product-details`, which is transparent until the portrait
+  // arrives but has laid itself out from the first frame. `invalidateOnRefresh`
+  // makes ScrollTrigger ask again on every resize.
+  const orbit = root.querySelector<HTMLElement>(
+    ".warm-product-details .warm-product-orbit",
+  );
+  const orbitCentre = () => {
+    if (!orbit) return { x: hero.clientWidth * 0.5, y: hero.clientHeight * 0.56 };
+    const fold = hero.getBoundingClientRect();
+    const ring = orbit.getBoundingClientRect();
+    return {
+      x: ring.left - fold.left + ring.width * 0.5,
+      y: ring.top - fold.top + ring.height * 0.5,
+    };
+  };
+
   const timeline = gsap.timeline({
     defaults: { ease: "none" },
     onUpdate: () => {
@@ -184,12 +201,13 @@ export function animateWarmScene(
       select(".warm-product-layer"),
       {
         scale: mobile ? 0.82 : motion.candleScale,
-        x: () =>
-          hero.clientWidth * 0.5 - candle.offsetLeft - candle.offsetWidth * 0.5,
-        y: () =>
-          hero.clientHeight * 0.56 -
-          candle.offsetTop -
-          candle.offsetHeight * 0.5,
+        // The vessel lands in the middle of the ring, and the ring is asked
+        // where that is. It used to be told: a hard 56% of the fold, which the
+        // ring's own CSS had to match. On a short phone the ring cannot stay
+        // at 56% — the labels above it would run into the headline — so the
+        // two drifted apart and the candle landed off centre.
+        x: () => orbitCentre().x - candle.offsetLeft - candle.offsetWidth * 0.5,
+        y: () => orbitCentre().y - candle.offsetTop - candle.offsetHeight * 0.5,
         duration: 1.15,
         ease: "sine.inOut",
       },

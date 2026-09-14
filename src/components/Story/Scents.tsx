@@ -55,7 +55,7 @@ export default function Scents() {
               className={`scent-texture ${selected === index ? "selected" : ""}`}
             >
               <Image
-                src="/assets/forest-background.png"
+                src="/assets/forest-background.webp"
                 alt=""
                 fill
                 sizes="(max-width: 640px) 85vw, 40vw"

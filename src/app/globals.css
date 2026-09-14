@@ -1,4 +1,7 @@
-@import "tailwindcss";
+/* No Tailwind. Not one utility class is used anywhere on this site — every
+   rule it ships with is hand-written in warm.css, scent.css and ritual.css —
+   and the import put 50KB of preflight and utilities in front of the first
+   paint. What preflight actually gave the page is written out below. */
 
 :root {
   --ivory: oklch(94% 0.025 94);
@@ -8,8 +11,60 @@
      page no longer loads. */
   --color-paper: oklch(95% 0.016 92);
 }
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+  border: 0 solid;
+}
+/* Preflight's own defaults, kept because the site's CSS was written against
+   them: no inherited margins on the type, and media as blocks that never
+   outgrow their column. */
+blockquote,
+dd,
+dl,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+pre {
+  margin: 0;
+}
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  vertical-align: middle;
+}
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
 }
 html,
 body {
@@ -17,6 +72,18 @@ body {
   min-height: 100%;
   background: var(--ink);
   color: var(--ivory);
+  /* Nothing on this site is meant to be reached by scrolling sideways. Every
+     room is a stack of layers wider than the fold, held inside a section that
+     clips them, and one layer escaping its section — a plate a browser rounds
+     up by a pixel, a pinned scene re-measured while the address bar is moving —
+     is enough to give the whole page a horizontal scrollbar.
+
+     `clip`, not `hidden`: `hidden` would make the document a scroll container
+     and break the pinned chapters. `overflow-y` stays `visible` beside it,
+     which the spec keeps as written when the other axis is `clip`. */
+  overflow-x: clip;
+  /* And no rubber-banding sideways on a touch screen. */
+  overscroll-behavior-x: none;
 }
 body {
   --font-serif: var(--font-cormorant), Georgia, serif;

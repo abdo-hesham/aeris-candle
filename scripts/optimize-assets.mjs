@@ -2,8 +2,10 @@ import sharp from "sharp";
 import { readFile, writeFile } from "node:fs/promises";
 
 // Format/size optimization only. Preserve the generated transparent alpha.
+// The plates that were larger than 400KB are WebP now — scripts/to-webp.mjs
+// owns those — so what is left here is the handful of small PNGs that still
+// carry an alpha channel this script has to check.
 const sizes = {
-  "forest-background": 1920,
   "candle-product": 800,
   "foreground-left-leaves": 900,
   "foreground-right-leaves": 900,
@@ -22,7 +24,7 @@ for (const [name, width] of Object.entries(sizes)) {
   console.log(
     `${name}: ${metadata.width}x${metadata.height}, alpha=${metadata.hasAlpha}, ${Math.round(output.length / 1024)} KB`,
   );
-  if (name !== "forest-background") {
+  {
     const { data, info } = await sharp(output)
       .ensureAlpha()
       .raw()

@@ -33,7 +33,7 @@ export default function WarmFooter() {
     <footer className="warm-footer">
       <div className="warm-footer-room" aria-hidden="true">
         <Image
-          src="/assets/footer-background.png"
+          src="/assets/footer-background.webp"
           alt=""
           fill
           sizes="100vw"

@@ -5,7 +5,7 @@ export default function StoryStage() {
     <div className="journey-stage" aria-hidden="true">
       <div className="journey-camera">
         <Image
-          src="/assets/forest-background.png"
+          src="/assets/forest-background.webp"
           alt=""
           fill
           sizes="100vw"

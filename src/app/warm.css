@@ -229,7 +229,7 @@
 }
 .warm-foreground {
   z-index: 5;
-  background: url("/assets/fireplace-bg.png") center/cover no-repeat;
+  background: url("/assets/fireplace-bg.webp") center/cover no-repeat;
   clip-path: polygon(0 67%, 5% 69%, 12% 77%, 20% 91%, 29% 100%, 0 100%);
   transform-origin: bottom left;
 }
@@ -1057,6 +1057,18 @@
 .warm-focus-content {
   position: absolute;
   inset: 0;
+  /* The room is one measurement: two columns of label with the ring in what
+     is left between them.
+
+     The ring used to be sized off the fold's height alone — `min(53vh, 560px)`
+     — while the labels beside it were a fixed 210 or 260 pixels. On a wide
+     screen there is room to spare and nobody notices. On a narrow, tall one
+     there is not: an upright tablet at 768 x 1024 has 53vh of height to give
+     the ring and only 768 pixels of width to hold the ring and four labels,
+     so the labels ran off both edges of the screen. The ring is now bounded on
+     both axes, and the labels take their width from the space that is left. */
+  --note: min(260px, 24vw);
+  --ring: min(53vh, 560px, calc(100vw - 2 * var(--note) - 40px));
 }
 .warm-focus-heading {
   position: absolute;
@@ -1078,8 +1090,8 @@
   position: absolute;
   left: 50%;
   top: 56%;
-  width: min(53vh, 560px);
-  height: min(53vh, 560px);
+  width: var(--ring);
+  height: var(--ring);
   transform: translate(-50%, -50%);
 }
 .warm-orbit-ring {
@@ -1090,7 +1102,7 @@
 }
 .warm-orbit-note {
   position: absolute;
-  width: 260px;
+  width: var(--note);
   font-family: var(--font-manrope), sans-serif;
   font-size: 11px;
   line-height: 1.65;
@@ -1113,11 +1125,18 @@
   background: var(--warm-cream);
   box-shadow: 0 0 18px #f5dba940;
 }
+/* Anchored at 94%, not at the 85.35% where the marker sits.
+
+   The marker is the ring's 45-degree point, and a label hung off it is two
+   lines tall — so while its first line clears the arc, the arc curves inward
+   by roughly half the label's height before its second line, and cut through
+   the words. 94% stands the labels clear of the widest point the arc reaches
+   over their whole height, at every ring size. */
 .warm-orbit-note--one {
-  right: 85.35%;
+  right: 94%;
   top: 14.65%;
   text-align: right;
-  padding-right: 24px;
+  padding-right: 22px;
   transform: translateY(-50%);
 }
 .warm-orbit-note--one i {
@@ -1125,9 +1144,9 @@
   top: 50%;
 }
 .warm-orbit-note--two {
-  left: 85.35%;
+  left: 94%;
   top: 14.65%;
-  padding-left: 24px;
+  padding-left: 22px;
   transform: translateY(-50%);
 }
 .warm-orbit-note--two i {
@@ -1135,10 +1154,10 @@
   top: 50%;
 }
 .warm-orbit-note--three {
-  right: 85.35%;
+  right: 94%;
   top: 85.35%;
   text-align: right;
-  padding-right: 24px;
+  padding-right: 22px;
   transform: translateY(-50%);
 }
 .warm-orbit-note--three i {
@@ -1146,9 +1165,9 @@
   top: 50%;
 }
 .warm-orbit-note--four {
-  left: 85.35%;
+  left: 94%;
   top: 85.35%;
-  padding-left: 24px;
+  padding-left: 22px;
   transform: translateY(-50%);
 }
 .warm-orbit-note--four i {
@@ -1183,42 +1202,88 @@
 .warm-still .warm-static-details {
   display: block;
 }
+/* The still fallback's vessel. It is a child of the ring, so it is centred on
+   the ring at every size instead of on a percentage of the fold that had to be
+   kept in step with it by hand. 54% is where the travelling vessel comes to
+   rest, so the still room and the animated one show the same picture. */
 .warm-static-candle {
   position: absolute;
-  width: 25.5%;
+  width: 54%;
   left: 50%;
-  top: 56%;
+  top: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
 }
 @media (max-width: 1100px) {
-  .warm-orbit-note {
-    width: 210px;
-  }
   .warm-orbit-note strong {
     font-size: 22px;
   }
 }
+/* ---------------------------------------------------------------------------
+   The chapter on a phone
+
+   On a wide screen every part of this room is placed as a percentage of the
+   fold, and there is room to spare. A phone has no room to spare, and the
+   fold's height is not something the page controls: address bar, notch and
+   browser chrome all take a bite out of it. The ring was sized off the width
+   (76vw) but placed off the height (56%), so on a short fold the labels above
+   it climbed into the headline and the two collided.
+
+   So on a phone the room is a column, and each part is given the height it
+   actually needs. The ring is the one thing that yields: it is the flex item
+   that shrinks, and it keeps its circle through `aspect-ratio`. Nothing can
+   overlap, because nothing is placed on top of anything.
+--------------------------------------------------------------------------- */
 @media (max-width: 767px) {
-  .warm-focus-heading {
-    top: 19%;
-    left: 5%;
-    right: 5%;
+  .warm-focus-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 2.4vh, 26px);
+    /* Clears the wordmark at the top of the fold and the pause control at the
+       bottom right. */
+    padding: 92px 20px 34px;
+  }
+  .warm-focus-heading,
+  .warm-focus-caption {
+    position: static;
+    flex: none;
+    width: 100%;
+    left: auto;
+    right: auto;
+    top: auto;
   }
   .warm-focus-heading .warm-eyebrow {
     font-size: 9px;
   }
   .warm-experience .warm-focus-heading h2 {
-    font-size: 38px;
+    /* Both axes bind: the width sets the line length, the height stops two
+       lines of display type from eating the ring's room on a short fold. */
+    font-size: min(38px, 5.6vh);
     max-width: 340px;
-    margin: 14px auto 0;
+    margin: 12px auto 0;
   }
   .warm-product-orbit {
-    width: 76vw;
-    height: 76vw;
-    max-width: 430px;
-    max-height: 430px;
-    top: 56%;
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    /* Shrinks when the fold is short; never grows past the width it was drawn
+       for. `min-height` keeps it a ring rather than a hairline on the very
+       shortest folds still in use. */
+    flex: 0 1 auto;
+    width: auto;
+    height: min(72vw, 360px);
+    min-height: 168px;
+    max-height: none;
+    aspect-ratio: 1;
+    /* The two labels above and the two below sit outside the ring, so the
+       column is told to keep that much room for them. The lower pair keeps
+       more: the ring is narrowest on a small phone, the labels are a share of
+       the ring, and the longest of them ("A comforting fragrance") takes a
+       third line there. */
+    margin-block: 72px 88px;
   }
   .warm-orbit-note {
     width: 45%;
@@ -1231,28 +1296,28 @@
     font-size: 17px;
     margin-top: 5px;
   }
-  .warm-orbit-note--one {
-    right: auto;
-    left: 0;
-    top: -18%;
-    text-align: left;
-  }
+  /* Anchored to the ring's own edge, not to a percentage of its height: the
+     gap stays 10px whether the ring is 360px across or 170px. */
+  .warm-orbit-note--one,
   .warm-orbit-note--two {
-    left: auto;
-    right: 0;
-    top: -18%;
-    text-align: right;
+    top: auto;
+    bottom: calc(100% + 8px);
   }
+  .warm-orbit-note--three,
+  .warm-orbit-note--four {
+    top: calc(100% + 8px);
+    bottom: auto;
+  }
+  .warm-orbit-note--one,
   .warm-orbit-note--three {
     right: auto;
     left: 0;
-    top: 103%;
     text-align: left;
   }
+  .warm-orbit-note--two,
   .warm-orbit-note--four {
     left: auto;
     right: 0;
-    top: 103%;
     text-align: right;
   }
   .warm-orbit-note i {
@@ -1265,20 +1330,15 @@
     border: 1px solid #e9d8bd18;
     border-radius: 50%;
   }
-  .warm-focus-caption {
-    top: 88%;
-  }
   .warm-focus-caption > p {
     font-size: 19px;
+    margin: 8px 0 0;
   }
   .warm-focus-caption > span {
     font-size: 9px;
   }
   .warm-static-details {
-    height: 850px;
-  }
-  .warm-static-candle {
-    width: 59%;
+    height: var(--warm-hero-height);
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1598,11 +1658,16 @@
    itself is sized off the height so it scales with the plate rather than
    with the screen's width.
 
-   The guard is an aspect ratio, not a width: a tablet held upright is wider
-   than the plate and would crop it top and bottom instead, which moves the
-   stone. Those sizes keep the landscape plate.
+   The guard is an aspect ratio, not a width, and it is 4/5 rather than the
+   3/5 a phone alone needs. A small tablet held upright — an iPad mini is
+   744 x 1133, so 0.66 — is narrow enough for the phone rules but was too wide
+   for the phone plate, so it got the 16/9 landscape plate stretched over an
+   upright fold: two thirds of that picture cropped away, and a vessel sized
+   for a phone filling the screen. 4/5 puts every upright fold this narrow on
+   the plate that was shot for it. A phone or tablet held sideways is past
+   1.0, so it keeps the landscape plate.
    --------------------------------------------------------------------------- */
-@media (max-width: 767px) and (max-aspect-ratio: 3 / 5) {
+@media (max-width: 767px) and (max-aspect-ratio: 4 / 5) {
   /* Every figure here is a fraction of the fold, so the fold is the fold:
      the 720px floor the wider breakpoints keep would push the invitation and
      the scroll cue off a short screen. */
@@ -1733,7 +1798,7 @@
 /* The shortest upright folds still in use — a 568px-tall phone. The headline
    and the couplet are within ten pixels of each other there, so this pass
    buys the type its air back. */
-@media (max-width: 767px) and (max-aspect-ratio: 3 / 5) and (max-height: 640px) {
+@media (max-width: 767px) and (max-aspect-ratio: 4 / 5) and (max-height: 640px) {
   /* The wordmark reaches about 74px down, so the eyebrow cannot rise past it. */
   .warm-hero-eyebrow {
     top: 13%;
@@ -1773,10 +1838,14 @@
   inset: -8%;
   pointer-events: none;
 }
+/* The plate already carries its blur (see scripts/bake-preloader-plate.mjs),
+   so nothing is filtered here: this is the first frame the reader sees, and a
+   full-viewport blur on it is the most expensive thing the page could do. */
 .warm-preloader-plate img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: blur(54px) saturate(1.06) brightness(0.92);
   transform: scale(1.18);
 }
 .warm-preloader-vignette {
@@ -1854,8 +1923,10 @@
       rgba(255, 240, 216, 0.03) 52%,
       rgba(255, 243, 222, 0.1)
     );
-  -webkit-backdrop-filter: blur(10px) saturate(1.18) brightness(1.06);
-  backdrop-filter: blur(10px) saturate(1.18) brightness(1.06);
+  /* No backdrop-filter. The wall behind this disc is already a soft, even
+     wash, so blurring it again changed nothing a reader could see — and it is
+     a live blur on the page's first paint, which is exactly the frame that
+     cannot afford one. */
   box-shadow:
     inset 0 0 0 1px rgba(255, 240, 214, 0.34),
     inset 0 1.5px 2px rgba(255, 246, 228, 0.5),
@@ -2002,6 +2073,7 @@
   opacity: 0;
   visibility: hidden;
 }
+
 
 /* Scroll is held until the entrance is over, so nothing interrupts it. */
 html.warm-locked,

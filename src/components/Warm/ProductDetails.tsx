@@ -1,6 +1,19 @@
+import type { ReactNode } from "react";
+
 import { product } from "@/data/product";
 
-export default function ProductDetails() {
+/**
+ * `children` is dropped into the middle of the ring. The still fallback puts
+ * the vessel there; the animated chapter leaves it empty, because the hero's
+ * own candle travels into that space. Either way the vessel's place is the
+ * centre of the ring itself, not a percentage of the fold that has to be kept
+ * in step with it by hand.
+ */
+export default function ProductDetails({
+  children,
+}: {
+  children?: ReactNode;
+}) {
   return (
     <div className="warm-focus-content">
       <div className="warm-focus-light" aria-hidden="true" />

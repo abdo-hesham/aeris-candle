@@ -113,7 +113,7 @@ export default function Checkout({ onClose }: { onClose: () => void }) {
         {step !== "complete" && (
           <div className="checkout-product">
             <Image
-              src="/assets/warm-candle.png"
+              src="/assets/warm-candle.webp"
               alt="Aeris Large candle"
               width={150}
               height={150}

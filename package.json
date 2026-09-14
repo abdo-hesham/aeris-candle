@@ -27,14 +27,12 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.4.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@types/three": "^0.185.4",
     "prettier": "3.6.2",
     "sharp": "^0.35.4",
-    "tailwindcss": "^4.3.3",
     "typescript": "5.9.3"
   },
   "browserslist": [

@@ -1,6 +1,18 @@
 import Image from "next/image";
 import { scentLayers, scents } from "./scentData";
 
+/*
+ * Every layer here is `loading="lazy"`, and on a desktop that changes nothing:
+ * this chapter is stacked inside the same pinned fold as the one before it, so
+ * its layers are already in the viewport and the browser fetches them at once.
+ *
+ * On a phone the chapters are stacked down the page instead, and this room is
+ * a screen and a half below the fold. They were eager there too, which meant
+ * nine plates of a room the reader has not reached competing for the phone's
+ * bandwidth with the room in front of them — measured at about 0.8s of the
+ * first paint. Lazy costs the desktop nothing and gives the phone that back.
+ */
+
 const objectSize = { width: 1448, height: 1086 };
 const squareSize = { width: 1254, height: 1254 };
 const sceneSize = { width: 1672, height: 941 };
@@ -15,7 +27,7 @@ export default function ScentVisual() {
           {...sceneSize}
           sizes="100vw"
           quality={85}
-          loading="eager"
+          loading="lazy"
           fetchPriority="low"
         />
       </div>
@@ -31,7 +43,7 @@ export default function ScentVisual() {
             {...squareSize}
             sizes="(max-width: 767px) 74vw, (max-width: 1023px) 59vw, 50vw"
             quality={85}
-            loading="eager"
+            loading="lazy"
             fetchPriority="low"
           />
         </div>
@@ -43,7 +55,7 @@ export default function ScentVisual() {
           {...sceneSize}
           sizes="100vw"
           quality={75}
-          loading="eager"
+          loading="lazy"
           fetchPriority="low"
         />
       </div>
@@ -55,7 +67,7 @@ export default function ScentVisual() {
             {...objectSize}
             sizes="(max-width: 767px) 98vw, (max-width: 1023px) 69vw, 58vw"
             quality={85}
-            loading="eager"
+            loading="lazy"
             fetchPriority="low"
           />
         </div>
@@ -66,7 +78,7 @@ export default function ScentVisual() {
             {...squareSize}
             sizes="(max-width: 767px) 26vw, (max-width: 1023px) 17vw, 14vw"
             quality={85}
-            loading="eager"
+            loading="lazy"
             fetchPriority="low"
           />
         </div>
@@ -83,7 +95,7 @@ export default function ScentVisual() {
                 {...objectSize}
                 sizes="(max-width: 767px) 66vw, (max-width: 1023px) 52vw, 44vw"
                 quality={85}
-                loading="eager"
+                loading="lazy"
                 fetchPriority="low"
               />
             </div>
@@ -96,7 +108,7 @@ export default function ScentVisual() {
             {...objectSize}
             sizes="(max-width: 767px) 52vw, (max-width: 1023px) 31vw, 26vw"
             quality={85}
-            loading="eager"
+            loading="lazy"
             fetchPriority="low"
           />
         </div>

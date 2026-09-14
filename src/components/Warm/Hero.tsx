@@ -13,7 +13,7 @@ export function Candle({ className = "" }: { className?: string }) {
   return (
     <div className={`warm-candle ${className}`}>
       <Image
-        src="/assets/candle-without-flame.png"
+        src="/assets/candle-without-flame.webp"
         alt="AERIS taupe ceramic candle with a delicate ivory emblem"
         width={1145}
         height={1374}
@@ -43,8 +43,10 @@ function HeadingLine({ children }: { children: string }) {
   );
 }
 
-/** The fold the portrait plate is shot for. Kept in step with warm.css. */
-const TALL_PLATE = "(max-width: 767px) and (max-aspect-ratio: 3 / 5)";
+/** The fold the portrait plate is shot for. Kept in step with warm.css — the
+ *  two must name the same fold, or a viewport falls in the gap and gets the
+ *  phone's layout with the landscape room behind it. */
+const TALL_PLATE = "(max-width: 767px) and (max-aspect-ratio: 4 / 5)";
 
 // `priority` here is what marks the plate eager and high-priority. Without
 // it getImageProps hands back `loading="lazy"`, and the room the hero stands
@@ -58,11 +60,11 @@ const plate = {
 } as const;
 const { props: wide } = getImageProps({
   ...plate,
-  src: "/assets/background.png",
+  src: "/assets/background.webp",
 });
 const { props: tall } = getImageProps({
   ...plate,
-  src: "/assets/mobile-hero-section.png",
+  src: "/assets/mobile-hero-section.webp",
 });
 
 export default function Hero() {
@@ -100,6 +102,11 @@ export default function Hero() {
       </div>
       <header className="warm-nav">
         <a className="warm-brand-lockup" href="#home" aria-label="AERIS home">
+          {/* No `priority`. It emitted a <link rel="preload" as="image"> into
+              the head ahead of the stylesheets, so a 62px mark that is hidden
+              behind the preloader anyway was queued in front of the CSS. It is
+              in the viewport, so it is still fetched on the first pass — just
+              behind the things the first frame actually needs. */}
           <Image
             className="warm-brand-mark"
             src="/assets/logo-mark.png"
@@ -107,7 +114,6 @@ export default function Hero() {
             width={640}
             height={640}
             sizes="62px"
-            priority
             data-critical=""
           />
           <span className="warm-wordmark">AERIS</span>

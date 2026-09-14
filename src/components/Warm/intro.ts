@@ -43,19 +43,19 @@ export function playWarmIntro(
       { y: 0, autoAlpha: 1, duration: 0.9 },
       0,
     )
-    // 2 — the candle is set down: it rises into the light and steadies.
+    // 2 — the candle is set down: it descends into the light and steadies.
     //     It leads the entrance rather than following the navigation, because
     //     the vessel is the hero's largest element and therefore the paint the
     //     page's LCP is measured on: every tenth of a second it waits here is
     //     a tenth of a second on the site's loading score.
-    //     It rises on `y` alone. Scaling it up from 0.94 meant its first paint
+    //     It travels on `y` alone. Scaling it up from 0.94 meant its first paint
     //     was smaller than its last, and the browser measures LCP on the
     //     largest paint: the entry was re-recorded at the end of the entrance
     //     rather than at its start, which cost the page two and a half seconds
     //     of reported load time for a six-percent change nobody can see.
     .fromTo(
       select(".warm-product-layer"),
-      { y: mobile ? 44 : 68, autoAlpha: 0 },
+      { y: mobile ? -44 : -68, autoAlpha: 0 },
       { y: 0, autoAlpha: 1, duration: 1.05, ease: "power2.out" },
       0.2,
     )

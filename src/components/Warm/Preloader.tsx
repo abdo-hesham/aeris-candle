@@ -168,15 +168,22 @@ export default function Preloader({ onDone }: Props) {
       aria-label="Loading, 0 percent"
     >
       {/* The reference plate, held far enough out of focus that it reads as
-          room light rather than as a picture. */}
+          room light rather than as a picture.
+
+          The blur is baked into the file, not applied by the browser: this is
+          the first thing painted on the page, and blurring a full-viewport
+          picture on that frame cost about 0.7s of it on a throttled phone. A
+          320px plate carrying its own blur is 886 bytes, needs no image
+          transform, and draws the same wall of light. */}
       <div className="warm-preloader-plate" aria-hidden="true">
-        <Image
-          src="/assets/preloader.png"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/assets/preloader-plate.webp"
           alt=""
-          fill
-          priority
-          quality={75}
-          sizes="100vw"
+          width={320}
+          height={180}
+          fetchPriority="high"
+          decoding="async"
           data-critical=""
         />
       </div>

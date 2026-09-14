@@ -35,7 +35,7 @@ export default function Discovery() {
       <figure className="discovery-study" data-parallax>
         <div className="study-image">
           <Image
-            src="/assets/forest-background.png"
+            src="/assets/forest-background.webp"
             alt="Sunlight settling across a bed of woodland moss"
             fill
             sizes="(max-width: 640px) 75vw, 32vw"
