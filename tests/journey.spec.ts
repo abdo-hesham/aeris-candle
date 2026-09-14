@@ -40,8 +40,12 @@ test("hero invitation leads into a readable product journey", async ({
   await expect(first).toHaveCSS("opacity", "1");
   await page.evaluate(() => document.querySelector("#about")!.scrollIntoView());
 
-  await expect(page.locator(".warm-hero .warm-flame")).toHaveCount(0);
   await page.evaluate(() => scrollTo(0, 0));
   await expect(page.locator(".warm-scroll-cue")).toBeVisible();
-  await expect(page.locator(".warm-hero .warm-flame")).toHaveCount(0);
+  // Back at the top the vessel is unlit again: the flame belongs to the end
+  // of chapter two, not to the arrival.
+  await expect(page.locator(".warm-hero .warm-flame")).toHaveCSS(
+    "opacity",
+    "0",
+  );
 });

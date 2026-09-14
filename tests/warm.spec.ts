@@ -85,8 +85,11 @@ test("warm scene layers, parallax and scent keyboard navigation", async ({
   }
   expect(previousDashOffset).toBeLessThan(initialDashOffset);
   await page.screenshot({ path: "test-results/focus-desktop.png" });
-  await page.getByRole("button", { name: "Pause scene motion" }).click();
-  await expect(page.locator("main")).toHaveClass(/warm-still/);
+  // The ring is closed on the last point, and that is where the wick catches.
+  await expect(page.locator(".warm-product-layer .warm-flame")).toHaveCSS(
+    "opacity",
+    "1",
+  );
   await page.locator("#scents").scrollIntoViewIfNeeded();
   await page.getByRole("tab", { name: /Amber/ }).click();
   await expect(page.getByRole("tabpanel")).toContainText("golden heart");
