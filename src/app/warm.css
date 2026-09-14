@@ -184,6 +184,9 @@
 }
 .warm-flame {
   position: absolute;
+  /* Dark until chapter two lights it. The scene tweens the opacity; the
+     flicker below owns the transform, so the two never fight. */
+  opacity: 0;
   left: 49%;
   top: -9%;
   width: 5%;
@@ -589,24 +592,6 @@
 .warm-footer-legal a:hover {
   color: var(--warm-cream);
 }
-.warm-motion-toggle {
-  position: fixed;
-  z-index: 15;
-  bottom: 12px;
-  left: 12px;
-  min-height: 28px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  background: #2f241cdf;
-  color: #eee1cb;
-  padding: 5px 9px;
-}
-.warm-motion-toggle > span {
-  font-family: var(--font-manrope), sans-serif;
-  font-size: 8px;
-  letter-spacing: 0.08em;
-}
 .warm-still * {
   animation: none !important;
 }
@@ -916,9 +901,6 @@
     align-items: flex-start;
     gap: 16px;
   }
-  .warm-motion-toggle > span {
-    display: none;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
   .warm-experience * {
@@ -1201,6 +1183,11 @@
 }
 .warm-still .warm-static-details {
   display: block;
+}
+/* The still room is chapter two's last frame, and in that frame the wick is
+   already burning. */
+.warm-still .warm-static-candle .warm-flame {
+  opacity: 1;
 }
 /* The still fallback's vessel. It is a child of the ring, so it is centred on
    the ring at every size instead of on a percentage of the fold that had to be
@@ -2122,14 +2109,6 @@ html.warm-locked body {
   .warm-hero-footer {
     bottom: 3%;
     font-size: 11px;
-  }
-  /* The pause control sits bottom-left, exactly where the hero footer's first
-     line lands once the fold is this short. Move it out of the way. */
-  .warm-motion-toggle {
-    bottom: auto;
-    top: 12px;
-    left: auto;
-    right: 12px;
   }
   .warm-focus-heading {
     top: 12%;

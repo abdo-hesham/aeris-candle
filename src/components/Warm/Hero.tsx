@@ -23,6 +23,9 @@ export function Candle({ className = "" }: { className?: string }) {
         fetchPriority="high"
         data-critical=""
       />
+      {/* The wick. It is dark until the reader has been all the way round the
+          ring in chapter two, and the scene lights it there. */}
+      <span className="warm-flame" data-flame aria-hidden="true" />
     </div>
   );
 }

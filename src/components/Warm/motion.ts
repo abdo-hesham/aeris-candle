@@ -329,6 +329,25 @@ export function animateWarmScene(
     4.05,
   );
 
+  // The ring is closed: the head has been all the way round and the fourth
+  // note is on the stone. That is where the wick catches. Only the opacity is
+  // tweened — the flicker keyframes own the flame's transform, and a CSS
+  // animation beats an inline one, so a scale here would simply be dropped.
+  const lastPoint = 1.15 + order.length * motion.pointInterval;
+  timeline.fromTo(
+    select(".warm-product-layer .warm-flame"),
+    { opacity: 0 },
+    { opacity: 1, duration: 0.3, ease: "power2.out" },
+    lastPoint,
+  );
+  // The room answers the flame: the light in the middle of the ring lifts a
+  // little once the vessel is burning.
+  timeline.to(
+    focus(".warm-focus-light"),
+    { opacity: 1, duration: 0.3, ease: "power2.out" },
+    lastPoint,
+  );
+
   // Section 2 ends on an empty room, and there is nothing to aim at until
   // Section 3's first note is on the stone. When the reader stops inside
   // that gap, having arrived by scrolling down, the page carries them the

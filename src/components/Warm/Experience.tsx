@@ -36,7 +36,6 @@ const useBrowserLayoutEffect =
 
 export default function WarmExperience() {
   const root = useRef<HTMLElement>(null);
-  const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [checkout, setCheckout] = useState(false);
   const [scent, setScent] = useState(0);
@@ -118,7 +117,7 @@ export default function WarmExperience() {
 
   useGSAP(
     () => {
-      if (paused || !introDone || !root.current) return;
+      if (!introDone || !root.current) return;
       const media = gsap.matchMedia();
       media.add(
         {
@@ -227,13 +226,13 @@ export default function WarmExperience() {
       );
       return () => media.revert();
     },
-    { scope: root, dependencies: [paused, introDone], revertOnUpdate: true },
+    { scope: root, dependencies: [introDone], revertOnUpdate: true },
   );
 
   return (
     <main
       ref={root}
-      className={`warm-experience ${paused || reduced ? "warm-still" : ""} ${
+      className={`warm-experience ${reduced ? "warm-still" : ""} ${
         introPlayed.current ? "" : "warm-boot"
       }`}
     >
@@ -264,22 +263,6 @@ export default function WarmExperience() {
         <RitualScene onBuy={() => setCheckout(true)} />
       </div>
       <WarmFooter />
-      <button
-        className="warm-motion-toggle"
-        disabled={reduced}
-        aria-label={
-          reduced
-            ? "Reduced motion enabled"
-            : paused
-              ? "Resume scene motion"
-              : "Pause scene motion"
-        }
-        aria-pressed={paused || reduced}
-        onClick={() => setPaused(!paused)}
-      >
-        {paused || reduced ? "▷" : "Ⅱ"}
-        <span>{paused || reduced ? "STILLNESS" : "PAUSE MOTION"}</span>
-      </button>
       {checkout && <Checkout onClose={() => setCheckout(false)} />}
     </main>
   );
